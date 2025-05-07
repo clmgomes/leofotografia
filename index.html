@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Leo Fotografias</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600&display=swap');
+        
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background-color: #000;
+            color: #fff;
+            scroll-behavior: smooth;
+        }
+        
+        .gallery-item {
+            transition: all 0.3s ease;
+        }
+        
+        .gallery-item:hover {
+            transform: scale(1.03);
+            box-shadow: 0 0 20px rgba(255, 255, 255, 0.1);
+        }
+        
+        .nav-link {
+            position: relative;
+        }
+        
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -2px;
+            left: 0;
+            background-color: #fff;
+            transition: width 0.3s ease;
+        }
+        
+        .nav-link:hover::after {
+            width: 100%;
+        }
+        
+        .hero-image {
+            background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.7)), url('https://images.unsplash.com/photo-1493863641943-9b68992a8d07?ixlib=rb-4.0.3');
+            background-size: cover;
+            background-position: center;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="fixed w-full z-50 bg-black bg-opacity-80 backdrop-blur-sm">
+        <div class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <a href="#" class="text-2xl font-light tracking-wider">LEO<span class="font-semibold">FOTOGRAFIAS</span></a>
+            <div class="hidden md:flex space-x-8">
+                <a href="#home" class="nav-link">Home</a>
+                <a href="#portfolio" class="nav-link">Portfólio</a>
+                <a href="#about" class="nav-link">Sobre</a>
+                <a href="#services" class="nav-link">Serviços</a>
+                <a href="#contact" class="nav-link">Contato</a>
+            </div>
+            <button class="md:hidden focus:outline-none" id="menu-toggle">
+                <i class="fas fa-bars text-xl"></i>
+            </button>
+        </div>
+        <!-- Mobile menu -->
+        <div class="md:hidden hidden bg-black bg-opacity-90 w-full px-6 py-4" id="mobile-menu">
+            <div class="flex flex-col space-y-4">
+                <a href="#home" class="nav-link">Home</a>
+                <a href="#portfolio" class="nav-link">Portfólio</a>
+                <a href="#about" class="nav-link">Sobre</a>
+                <a href="#services" class="nav-link">Serviços</a>
+                <a href="#contact" class="nav-link">Contato</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero-image min-h-screen flex items-center justify-center text-center px-4">
+        <div class="max-w-4xl mx-auto">
+            <h1 class="text-4xl md:text-6xl font-light mb-6">CAPTURANDO <span class="font-semibold">MOMENTOS</span></h1>
+            <p class="text-lg md:text-xl mb-8 max-w-2xl mx-auto">Transformando emoções em imagens atemporais através da minha lente.</p>
+            <div class="flex justify-center space-x-4">
+                <a href="#portfolio" class="px-6 py-3 border border-white hover:bg-white hover:text-black transition duration-300">Ver Portfólio</a>
+                <a href="#contact" class="px-6 py-3 bg-white text-black hover:bg-transparent hover:text-white border border-white transition duration-300">Agendar Sessão</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Portfolio Section -->
+    <section id="portfolio" class="py-20 px-4">
+        <div class="container mx-auto">
+            <h2 class="text-3xl md:text-4xl font-light text-center mb-16">PORTFÓLIO</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Portfolio Item 1 -->
+                <div class="gallery-item overflow-hidden rounded-lg">
+                    <img src="https://images.unsplash.com/photo-1529626455594-4ff0802cfb7e?ixlib=rb-4.0.3" alt="Portrait" class="w-full h-64 object-cover">
+                    <div class="p-4 bg-gray-900">
+                        <h3 class="text-xl mb-2">Retratos</h3>
+                        <p class="text-gray-400">Capturando a essência de cada pessoa</p>
+                    </div>
+                </div>
+                
+                <!-- Portfolio Item 2 -->
+                <div class="gallery-item overflow-hidden rounded-lg">
+                    <img src="https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1?ixlib=rb-4.0.3" alt="Landscape" class="w-full h-64 object-cover">
+                    <div class="p-4 bg-gray-900">
+                        <h3 class="text-xl mb-2">Paisagens</h3>
+                        <p class="text-gray-400">Beleza natural em cada quadro</p>
+                    </div>
+                </div>
+                
+                <!-- Portfolio Item 3 -->
+                <div class="gallery-item overflow-hidden rounded-lg">
+                    <img src="https://images.unsplash.com/photo-1523438885200-e635ba2c371e?ixlib=rb-4.0.3" alt="Wedding" class="w-full h-64 object-cover">
+                    <div class="p-4 bg-gray-900">
+                        <h3 class="text-xl mb-2">Casamentos</h3>
+                        <p class="text-gray-400">Memórias eternizadas</p>
+                    </div>
+                </div>
+                
+                <!-- Portfolio Item 4 -->
+                <div class="gallery-item overflow-hidden rounded-lg">
+                    <img src="https://images.unsplash.com/photo-1549060279-7e168fcee0c2?ixlib=rb-4.0.3" alt="Fashion" class="w-full h-64 object-cover">
+                    <div class="p-4 bg-gray-900">
+                        <h3 class="text-xl mb-2">Moda</h3>
+                        <p class="text-gray-400">Estilo e elegância</p>
+                    </div>
+                </div>
+                
+                <!-- Portfolio Item 5 -->
+                <div class="gallery-item overflow-hidden rounded-lg">
+                    <img src="https://images.unsplash.com/photo-1519671482749-fd09be7ccebf?ixlib=rb-4.0.3" alt="Product" class="w-full h-64 object-cover">
+                    <div class="p-4 bg-gray-900">
+                        <h3 class="text-xl mb-2">Produtos</h3>
+                        <p class="text-gray-400">Destaque para seu negócio</p>
+                    </div>
+                </div>
+                
+                <!-- Portfolio Item 6 -->
+                <div class="gallery-item overflow-hidden rounded-lg">
+                    <img src="https://images.unsplash.com/photo-1492684223066-81342ee5ff30?ixlib=rb-4.0.3" alt="Event" class="w-full h-64 object-cover">
+                    <div class="p-4 bg-gray-900">
+                        <h3 class="text-xl mb-2">Eventos</h3>
+                        <p class="text-gray-400">Cobertura completa</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="py-20 px-4 bg-gray-900">
+        <div class="container mx-auto max-w-4xl">
+            <h2 class="text-3xl md:text-4xl font-light text-center mb-16">SOBRE MIM</h2>
+            <div class="flex flex-col md:flex-row items-center">
+                <div class="md:w-1/3 mb-8 md:mb-0 md:pr-8">
+                    <img src="https://images.unsplash.com/photo-1568602471122-7832951cc4c5?ixlib=rb-4.0.3" alt="Leo Fotografias" class="rounded-full w-48 h-48 object-cover mx-auto border-4 border-white">
+                </div>
+                <div class="md:w-2/3">
+                    <p class="mb-4">Olá, eu sou Leo. Minha jornada na fotografia começou há mais de 10 anos, quando recebi minha primeira câmera como presente de aniversário.</p>
+                    <p class="mb-4">Desde então, desenvolvi um estilo único que combina técnica apurada com sensibilidade artística, buscando sempre capturar a essência de cada momento.</p>
+                    <p class="mb-4">Minha abordagem é discreta e respeitosa, permitindo que as emoções genuínas fluam naturalmente diante da minha lente.</p>
+                    <p>Formado em Fotografia pela Escola XYZ, já tive o privilégio de trabalhar com clientes diversos, desde famílias até grandes marcas, sempre buscando superar expectativas.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section id="services" class="py-20 px-4">
+        <div class="container mx-auto">
+            <h2 class="text-3xl md:text-4xl font-light text-center mb-16">SERVIÇOS</h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto">
+                <!-- Service 1 -->
+                <div class="bg-gray-900 p-8 rounded-lg">
+                    <div class="text-4xl mb-4 text-center">
+                        <i class="fas fa-user"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-4 text-center">Retratos</h3>
+                    <ul class="space-y-2 text-gray-400">
+                        <li><i class="fas fa-check mr-2 text-white"></i> Sessão individual</li>
+                        <li><i class="fas fa-check mr-2 text-white"></i> Até 2 looks</li>
+                        <li><i class="fas fa-check mr-2 text-white"></i> 20 fotos editadas</li>
+                        <li><i class="fas fa-check mr-2 text-white"></i> Locação inclusa</li>
+                    </ul>
+                    <div class="mt-6 text-center">
+                        <span class="text-2xl">R$ 500</span>
+                    </div>
+                </div>
+                
+                <!-- Service 2 -->
+                <div class="bg-gray-900 p-8 rounded-lg border border-white">
+                    <div class="text-4xl mb-4 text-center">
+                        <i class="fas fa-heart"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-4 text-center">Casamentos</h3>
+                    <ul class="space-y-2 text-gray-400">
+                        <li><i class="fas fa-check mr-2 text-white"></i> Cobertura completa</li>
+                        <li><i class="fas fa-check mr-2 text-white"></i> 2 fotógrafos</li>
+                        <li><i class="fas fa-check mr-2 text-white"></i> 300+ fotos editadas</li>
+                        <li><i class="fas fa-check mr-2 text-white"></i> Álbum físico premium</li>
+                    </ul>
+                    <div class="mt-6 text-center">
+                        <span class="text-2xl">R$ 3.500</span>
+                    </div>
+                </div>
+                
+                <!-- Service 3 -->
+                <div class="bg-gray-900 p-8 rounded-lg">
+                    <div class="text-4xl mb-4 text-center">
+                        <i class="fas fa-briefcase"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-4 text-center">Comercial</h3>
+                    <ul class="space-y-2 text-gray-400">
+                        <li><i class="fas fa-check mr-2 text-white"></i> Produtos ou serviços</li>
+                        <li><i class="fas fa-check mr-2 text-white"></i> Iluminação profissional</li>
+                        <li><i class="fas fa-check mr-2 text-white"></i> 30 fotos editadas</li>
+                        <li><i class="fas fa-check mr-2 text-white"></i> Direção criativa</li>
+                    </ul>
+                    <div class="mt-6 text-center">
+                        <span class="text-2xl">R$ 1.200</span>
+                    </div>
+                </div>
+            </div>
+            <div class="mt-12 text-center">
+                <p class="mb-4">* Valores podem variar conforme complexidade do projeto</p>
+                <a href="#contact" class="px-6 py-3 bg-white text-black hover:bg-transparent hover:text-white border border-white transition duration-300">Personalizar Pacote</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-20 px-4 bg-gray-900">
+        <div class="container mx-auto max-w-4xl">
+            <h2 class="text-3xl md:text-4xl font-light text-center mb-16">CONTATO</h2>
+            <div class="flex flex-col md:flex-row">
+                <div class="md:w-1/2 mb-8 md:mb-0 md:pr-8">
+                    <h3 class="text-xl mb-4">Vamos conversar sobre seu projeto</h3>
+                    <p class="mb-6">Preencha o formulário ao lado ou entre em contato diretamente pelos canais abaixo:</p>
+                    
+                    <div class="space-y-4">
+                        <div class="flex items-center">
+                            <i class="fas fa-phone mr-4 text-xl"></i>
+                            <span>(11) 98765-4321</span>
+                        </div>
+                        <div class="flex items-center">
+                            <i class="fas fa-envelope mr-4 text-xl"></i>
+                            <span>contato@leofotografias.com</span>
+                        </div>
+                        <div class="flex items-center">
+                            <i class="fas fa-map-marker-alt mr-4 text-xl"></i>
+                            <span>São Paulo - SP</span>
+                        </div>
+                    </div>
+                    
+                    <div class="mt-8 flex space-x-4">
+                        <a href="#" class="text-2xl hover:text-gray-400 transition"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="text-2xl hover:text-gray-400 transition"><i class="fab fa-facebook"></i></a>
+                        <a href="#" class="text-2xl hover:text-gray-400 transition"><i class="fab fa-whatsapp"></i></a>
+                    </div>
+                </div>
+                
+                <div class="md:w-1/2">
+                    <form class="space-y-4">
+                        <div>
+                            <label for="name" class="block mb-1">Nome</label>
+                            <input type="text" id="name" class="w-full bg-gray-800 border border-gray-700 rounded px-4 py-2 focus:outline-none focus:border-white">
+                        </div>
+                        <div>
+                            <label for="email" class="block mb-1">E-mail</label>
+                            <input type="email" id="email" class="w-full bg-gray-800 border border-gray-700 rounded px-4 py-2 focus:outline-none focus:border-white">
+                        </div>
+                        <div>
+                            <label for="phone" class="block mb-1">Telefone</label>
+                            <input type="tel" id="phone" class="w-full bg-gray-800 border border-gray-700 rounded px-4 py-2 focus:outline-none focus:border-white">
+                        </div>
+                        <div>
+                            <label for="service" class="block mb-1">Serviço de interesse</label>
+                            <select id="service" class="w-full bg-gray-800 border border-gray-700 rounded px-4 py-2 focus:outline-none focus:border-white">
+                                <option value="">Selecione...</option>
+                                <option value="portrait">Retratos</option>
+                                <option value="wedding">Casamentos</option>
+                                <option value="commercial">Comercial</option>
+                                <option value="event">Eventos</option>
+                                <option value="other">Outro</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label for="message" class="block mb-1">Mensagem</label>
+                            <textarea id="message" rows="4" class="w-full bg-gray-800 border border-gray-700 rounded px-4 py-2 focus:outline-none focus:border-white"></textarea>
+                        </div>
+                        <button type="submit" class="w-full bg-white text-black py-3 rounded hover:bg-transparent hover:text-white border border-white transition duration-300">Enviar Mensagem</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="py-8 px-4 text-center border-t border-gray-800">
+        <div class="container mx-auto">
+            <p>&copy; 2023 Leo Fotografias. Todos os direitos reservados.</p>
+            <p class="mt-2 text-gray-500">Desenvolvido com paixão por capturar momentos especiais.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile menu toggle
+        document.getElementById('menu-toggle').addEventListener('click', function() {
+            const menu = document.getElementById('mobile-menu');
+            menu.classList.toggle('hidden');
+        });
+        
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                const targetElement = document.querySelector(targetId);
+                
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 80,
+                        behavior: 'smooth'
+                    });
+                    
+                    // Close mobile menu if open
+                    const mobileMenu = document.getElementById('mobile-menu');
+                    if (!mobileMenu.classList.contains('hidden')) {
+                        mobileMenu.classList.add('hidden');
+                    }
+                }
+            });
+        });
+        
+        // Change navbar background on scroll
+        window.addEventListener('scroll', function() {
+            const nav = document.querySelector('nav');
+            if (window.scrollY > 50) {
+                nav.classList.add('shadow-lg');
+            } else {
+                nav.classList.remove('shadow-lg');
+            }
+        });
+    </script>
+</body>
+</html>
