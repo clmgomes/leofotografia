@@ -301,7 +301,9 @@
                 
                 <div class="md:w-1/2">
 
-                    <form action="https://formsubmit.co/clmgomes@gmail.com" method="POST" class="space-y-4">
+                    <form action="https://api.staticforms.xyz/submit" method="POST" class="space-y-4" onsubmit="redirectToThanks()">
+					
+						<input type="hidden" name="apiKey" value="sf_jd5472a5l4mhnl017603mhb2">
                         
                         <!-- Campo Nome -->
                         <div>
@@ -341,7 +343,7 @@
                         </div>
                     
                         <!-- Botão de Enviar -->
-                        <input type="hidden" name="_next" value="https://clmgomes.github.io/leofotografia/tks.html">
+                        <input type="hidden" name="redirectTo" value="https://clmgomes.github.io/leofotografia/tks.html">
                         <button type="submit" class="w-full bg-white text-black py-3 rounded hover:bg-transparent hover:text-white border border-white transition duration-300">
                             Enviar Mensagem
                         </button>
