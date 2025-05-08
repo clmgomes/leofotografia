@@ -301,7 +301,7 @@
                 
                 <div class="md:w-1/2">
 
-                    <form action="https://formsubmit.co/clmgomes@gmail.com" method="POST" class="space-y-4">
+                    <form action="https://formsubmit.co/clmgomes@gmail.com" method="POST" class="space-y-4" onsubmit="redirectToThanks()>
                         <input type="hidden" name="_next" value="https://www.leofotografia.com.br/tks.html">
                         <!-- Campo Nome -->
                         <div>
@@ -333,6 +333,9 @@
                                 <option value="other">Outro</option>
                             </select>
                         </div>
+
+
+                        
                         
                         <!-- Campo Mensagem -->
                         <div>
@@ -349,6 +352,15 @@
 
                         <input type="hidden" name="_captcha" value="false">
                     </form>
+
+
+                    <script>
+                        function redirectToThanks() {
+                            setTimeout(() => {
+                                window.location.href = "https://www.leofotografia.com.br/tks.html";
+                            }, 1000); // Redireciona após 1 segundo (ajuste conforme necessário)
+                        }
+                    </script>
                     
                 </div>
             </div>
