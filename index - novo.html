@@ -1,0 +1,579 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" href="favicon.png">
+    <title>Leo Fotografia</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+	<link href="https://fonts.googleapis.com/css2?family=Fredoka&display=swap" rel="stylesheet">
+    <!-- Google tag (gtag.js) -->
+        <script async src="https://www.googletagmanager.com/gtag/js?id=G-K3ZTW0SCN8"></script>
+        <script>
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+    
+          gtag('config', 'G-K3ZTW0SCN8');
+    </script>
+
+    <script type="application/ld+json">
+        {
+          "@context": "https://schema.org",
+          "@type": "Photograph",
+          "name": "Leo Instante Fotos",
+          "image": "https://seusite.com/sua-foto.jpg",
+          "description": "Fotógrafo em Bento Gonçalves e Serra Gaúcha. Especializado em ensaios, eventos e retratos espontâneos.",
+          "address": {
+            "@type": "PostalAddress",
+            "addressLocality": "Bento Gonçalves",
+            "addressRegion": "RS",
+            "addressCountry": "Brasil"
+          },
+          "url": "https://www.leofotografia.com.br",
+          "sameAs": [
+            "https://www.instagram.com/leofotografiabg"
+          ]
+        }
+    </script>
+    
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600&display=swap');
+        
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background-color: #000;
+            color: #fff;
+            scroll-behavior: smooth;
+        }
+        
+        .gallery-item {
+            transition: all 0.3s ease;
+        }
+        
+        .gallery-item:hover {
+            transform: scale(1.03);
+            box-shadow: 0 0 20px rgba(255, 255, 255, 0.1);
+        }
+        
+        .nav-link {
+            position: relative;
+        }
+        
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -2px;
+            left: 0;
+            background-color: #fff;
+            transition: width 0.3s ease;
+        }
+        
+        .nav-link:hover::after {
+            width: 100%;
+        }
+        
+        .hero-image {
+            background-image: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.6)), url('https://clmgomes.github.io/leofotografia/capa.jpg');
+            background-size: cover;
+            background-position: center;
+        }
+		
+		
+		/* Lightbox styles */
+		.lightbox {
+			display: none;
+			position: fixed;
+			z-index: 9999;
+			top: 0;
+			left: 0;
+			width: 100%;
+			height: 100%;
+			background-color: rgba(0, 0, 0, 0.9);
+			justify-content: center;
+			align-items: center;
+		}
+
+		.lightbox-content {
+			max-width: 90%;
+			max-height: 90%;
+			position: relative;
+		}
+
+		.lightbox-img {
+			max-width: 100%;
+			max-height: 90vh;
+			display: block;
+			margin: 0 auto;
+		}
+
+		.close-lightbox {
+			position: absolute;
+			top: -40px;
+			right: 0;
+			color: white;
+			font-size: 30px;
+			cursor: pointer;
+			background: none;
+			border: none;
+		}
+
+		.close-lightbox:hover {
+			color: #ccc;
+		}
+
+		@media (max-width: 768px) {
+			.lightbox-content {
+				max-width: 95%;
+			}
+			
+			.close-lightbox {
+				top: -30px;
+				font-size: 25px;
+			}
+		}
+		
+		
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="fixed w-full z-50 bg-black bg-opacity-80 backdrop-blur-sm">
+        <div class="container mx-auto px-6 py-4 flex justify-between items-center">
+
+            <a href="#" class="text-2xl font-light tracking-wider">LEO<span class="font-semibold">FOTOGRAFIA</span></a>
+            <div class="hidden md:flex space-x-8">
+                <a href="#home" class="nav-link">Home</a>
+                <a href="#portfolio" class="nav-link">Portfólio</a>
+                <a href="#about" class="nav-link">Sobre</a>
+                <a href="#services" class="nav-link">Serviços</a>
+                <a href="#contact" class="nav-link">Contato</a>
+            </div>
+            <button class="md:hidden focus:outline-none" id="menu-toggle">
+                <i class="fas fa-bars text-xl"></i>
+            </button>
+        </div>
+        <!-- Mobile menu -->
+        <div class="md:hidden hidden bg-black bg-opacity-90 w-full px-6 py-4" id="mobile-menu">
+            <div class="flex flex-col space-y-4">
+                <a href="#home" class="nav-link">Home</a>
+                <a href="#portfolio" class="nav-link">Portfólio</a>
+                <a href="#about" class="nav-link">Sobre</a>
+                <a href="#services" class="nav-link">Serviços</a>
+                <a href="#contact" class="nav-link">Contato</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero-image min-h-screen flex items-center justify-center text-center px-4">
+        <div class="max-w-4xl mx-auto">
+            <h1 class="text-4xl md:text-6xl font-light mb-6">CAPTURANDO <span class="font-semibold">MOMENTOS</span></h1>
+            <p class="text-lg md:text-xl mb-8 max-w-2xl mx-auto">Transformando emoções em imagens atemporais através da minha lente.</p>
+            <div class="flex justify-center space-x-4">
+                <a href="#portfolio" class="px-6 py-3 border border-white hover:bg-white hover:text-black transition duration-300">Ver Portfólio</a>
+                <a href="#contact" class="px-6 py-3 bg-white text-black hover:bg-transparent hover:text-white border border-white transition duration-300">Agendar Sessão</a>
+            </div>
+        </div>
+    </section>
+
+	<!-- Portfolio Section -->
+	<section id="portfolio" class="py-20 px-4">
+		<div class="container mx-auto">
+			<h2 class="text-3xl md:text-4xl font-light text-center mb-16">PORTFÓLIO</h2>
+			<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+				<!-- Portfolio Item 1 -->
+				<div class="gallery-item overflow-hidden rounded-lg">
+					<img src="" alt="Retrato" class="retrato-img w-full h-64 object-cover">
+					<div class="p-4 bg-gray-900">
+						<h3 class="text-xl mb-2">Retratos</h3>
+						<p class="text-gray-400">Capturando a essência de cada pessoa</p>
+					</div>
+				</div>
+				
+				<!-- Portfolio Item 2 -->
+				<div class="gallery-item overflow-hidden rounded-lg">
+					<img src="" alt="Aniversario" class="aniversario-img w-full h-64 object-cover">
+					<div class="p-4 bg-gray-900">
+						<h3 class="text-xl mb-2">Aniversários</h3>
+						<p class="text-gray-400">Memórias doces</p>
+					</div>
+				</div>
+				
+				<!-- Portfolio Item 3 -->
+				<div class="gallery-item overflow-hidden rounded-lg">
+					<img src="" alt="Ensaios" class="ensaio-img w-full h-64 object-cover">
+					<div class="p-4 bg-gray-900">
+						<h3 class="text-xl mb-2">Ensaios externos</h3>
+						<p class="text-gray-400">Cenários vivos</p>
+					</div>
+				</div>
+
+				<!-- Portfolio Item 4 -->
+				<div class="gallery-item overflow-hidden rounded-lg">
+					<img src="" alt="Infância" class="infancia-img w-full h-64 object-cover">
+					<div class="p-4 bg-gray-900">
+						<h3 class="text-xl mb-2">Infância</h3>
+						<p class="text-gray-400">Pequenos grandes momentos</p>
+					</div>
+				</div>
+				
+				<!-- Portfolio Item 5 -->
+				<div class="gallery-item overflow-hidden rounded-lg">
+					<img src="" alt="Esporte" class="esporte-img w-full h-64 object-cover">
+					<div class="p-4 bg-gray-900">
+						<h3 class="text-xl mb-2">Esportes</h3>
+						<p class="text-gray-400">Treinos e competições</p>
+					</div>
+				</div>
+				
+				<!-- Portfolio Item 6 -->
+				<div class="gallery-item overflow-hidden rounded-lg">
+					<img src="" alt="Produtos" class="produto-img w-full h-64 object-cover">
+					<div class="p-4 bg-gray-900">
+						<h3 class="text-xl mb-2">Produtos</h3>
+						<p class="text-gray-400">Destaque para seu negócio</p>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+
+    <!-- About Section -->
+    <section id="about" class="py-20 px-4 bg-gray-900">
+        <div class="container mx-auto max-w-4xl">
+            <h2 class="text-3xl md:text-4xl font-light text-center mb-16">SOBRE MIM</h2>
+            <div class="flex flex-col md:flex-row items-center">
+                <div class="md:w-1/3 mb-8 md:mb-0 md:pr-8">
+                    <img src="https://clmgomes.github.io/leofotografia/fotoleopb.jpeg" alt="Leo Fotografias" class="rounded-full w-48 h-48 object-cover mx-auto border-4 border-white">
+                </div>
+                <div class="md:w-2/3">
+                    <p class="mb-4">Sou o Leo, fotógrafo apaixonado por capturar instantes que contam histórias.</p>
+                    <p class="mb-4">Acredito que cada pessoa, cada lugar e cada gesto simples carrega algo único — e é isso que busco revelar em cada clique.</p>
+                    <p class="mb-4">Comecei fotografando com o olhar curioso de quem vê beleza no cotidiano: o riso espontâneo, o vento no rosto, a luz atravessando uma árvore.</p>
+                    <p class="mb-4">Gosto de retratos que mostram a alma, de ensaios externos que conversam com a natureza, de festas infantis cheias de encanto e movimento, de momentos pequenos que se tornam eternos na imagem.</p>                    
+                    <p>Se quiser registrar algo que seja importante pra você, estou aqui para isso.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section id="services" class="py-20 px-4">
+        <div class="container mx-auto">
+            <h2 class="text-3xl md:text-4xl font-light text-center mb-16">ENSAIOS</h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-8xl mx-auto">
+                <!-- Service 1 -->
+                <div class="bg-gray-900 p-8 rounded-lg">
+                    <div class="text-4xl mb-4 text-center">
+                        <i class="fa-solid fa-star"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-4 text-center">Pacote Essencial</h3>
+                    <ul class="space-y-2 text-gray-400">
+                        <li><i class="fas fa-check mr-2 text-white"></i>Duração: até 30 minutos</li>
+                        <li><i class="fas fa-check mr-2 text-white"></i>Local: 1 ponto escolhido pelo cliente</li>
+                        <li><i class="fas fa-check mr-2 text-white"></i>10 fotos tratadas em alta resolução</li>
+                        <li><i class="fas fa-check mr-2 text-white"></i>Entrega via link online</li>
+                    </ul>
+                    <div class="mt-6 text-center">
+                        <span class="text-2xl">R$ 150</span>
+                    </div>
+                </div>
+                <!-- Service 2 -->
+                <div class="bg-gray-900 p-8 rounded-lg border border-white">
+                    <div class="text-4xl mb-4 text-center">
+                        <i class="fas fa-heart"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-4 text-center">Pacote Completo</h3>
+                    <ul class="space-y-2 text-gray-400">
+                        <li><i class="fas fa-check mr-2 text-white"></i>Duração: até 1h30s</li>
+                        <li><i class="fas fa-check mr-2 text-white"></i>Até 2 locais próximos</li>
+                        <li><i class="fas fa-check mr-2 text-white"></i>25 fotos tratadas em alta resolução</li>
+                        <li><i class="fas fa-check mr-2 text-white"></i>Versão para redes sociais + link online</li>
+                        <li><i class="fas fa-check mr-2 text-white"></i>1 impressão 20x30 cm incluída</li>
+                    </ul>
+                    <div class="mt-6 text-center">
+                        <span class="text-2xl">R$ 400</span>
+                    </div>
+                </div>
+                
+                <!-- Service 3 -->
+                <div class="bg-gray-900 p-8 rounded-lg">
+                    <div class="text-4xl mb-4 text-center">
+                        <i class="fa-solid fa-crown"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-4 text-center">Pacote Premium</h3>
+                    <ul class="space-y-2 text-gray-400">
+                        <li><i class="fas fa-check mr-2 text-white"></i>Duração: até 3 horas</li>
+                        <li><i class="fas fa-check mr-2 text-white"></i>Locais ilimitados (dentro da mesma cidade)</li>
+                        <li><i class="fas fa-check mr-2 text-white"></i>Até 50 fotos tratadas</li>
+                        <li><i class="fas fa-check mr-2 text-white"></i>Galeria privada online + versão para redes sociais</li>
+                        <li><i class="fas fa-check mr-2 text-white"></i>5 impressões 15x21 + 1 painel 30x40 cm</li>
+                        <li><i class="fas fa-check mr-2 text-white"></i>Brinde surpresa</li>
+                    </ul>
+                    <div class="mt-6 text-center">
+                        <span class="text-2xl">R$ 800</span>
+                    </div>
+                </div>
+            </div>
+            <div class="mt-12 text-center">
+                <p class="mb-4">* Valores podem variar conforme complexidade do projeto</p>
+                <a href="#contact" class="px-6 py-3 bg-white text-black hover:bg-transparent hover:text-white border border-white transition duration-300">Personalizar Pacote</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-20 px-4 bg-gray-900">
+        <div class="container mx-auto max-w-4xl">
+            <h2 class="text-3xl md:text-4xl font-light text-center mb-16">CONTATO</h2>
+            <div class="flex flex-col md:flex-row">
+                <div class="md:w-1/2 mb-8 md:mb-0 md:pr-8">
+                    <h3 class="text-xl mb-4">Vamos conversar sobre seu projeto</h3>
+                    <p class="mb-6">Preencha o formulário ao lado ou entre em contato diretamente pelos canais abaixo:</p>
+                    
+                    <div class="space-y-4">
+                        <div class="flex items-center">
+                            <i class="fas fa-phone mr-4 text-xl"></i>
+                            <span>(54) 99925-7279</span>
+                        </div>
+                        <div class="flex items-center">
+                            <i class="fas fa-envelope mr-4 text-xl"></i>
+                            <span>clmgomes@gmail.com</span>
+                        </div>
+                        <div class="flex items-center">
+                            <i class="fas fa-map-marker-alt mr-4 text-xl"></i>
+                            <span>Bento Gonçalves - RS</span>
+                        </div>
+                    </div>
+                    
+                    <div class="mt-8 flex space-x-4">
+                        <a href="https://www.instagram.com/leofotografiabg/" class="text-2xl hover:text-gray-400 transition"><i class="fab fa-instagram"></i></a>
+                        <a href="https://wa.me/5554999257279" class="text-2xl hover:text-gray-400 transition"><i class="fab fa-whatsapp"></i></a>
+                    </div>
+                </div>
+                
+                <div class="md:w-1/2">
+
+                    <form action="https://api.staticforms.xyz/submit" method="POST" class="space-y-4" onsubmit="redirectToThanks()">
+					
+						<input type="hidden" name="apiKey" value="sf_jd5472a5l4mhnl017603mhb2">
+                        
+                        <!-- Campo Nome -->
+                        <div>
+                            <label for="name" class="block mb-1">Nome</label>
+                            <input type="text" id="name" name="name" required class="w-full bg-gray-800 border border-gray-700 rounded px-4 py-2 focus:outline-none focus:border-white">
+                        </div>
+                        
+                        <!-- Campo E-mail -->
+                        <div>
+                            <label for="email" class="block mb-1">E-mail</label>
+                            <input type="email" id="email" name="email" required class="w-full bg-gray-800 border border-gray-700 rounded px-4 py-2 focus:outline-none focus:border-white">
+                        </div>
+                        
+                        <!-- Campo Telefone -->
+                        <div>
+                            <label for="phone" class="block mb-1">Telefone</label>
+                            <input type="tel" id="phone" name="phone" class="w-full bg-gray-800 border border-gray-700 rounded px-4 py-2 focus:outline-none focus:border-white">
+                        </div>
+                        
+                        <!-- Campo Serviço de Interesse -->
+                        <div>
+                            <label for="service" class="block mb-1">Serviço de interesse</label>
+                            <select id="service" name="service" class="w-full bg-gray-800 border border-gray-700 rounded px-4 py-2 focus:outline-none focus:border-white">
+                                <option value="">Selecione...</option>
+                                <option value="portrait">Retratos</option>
+                                <option value="wedding">Ensaios</option>
+                                <option value="commercial">Produtos</option>
+                                <option value="event">Eventos</option>
+                                <option value="other">Outro</option>
+                            </select>
+                        </div>
+                        
+                        <!-- Campo Mensagem -->
+                        <div>
+                            <label for="message" class="block mb-1">Mensagem</label>
+                            <textarea id="message" name="message" rows="4" class="w-full bg-gray-800 border border-gray-700 rounded px-4 py-2 focus:outline-none focus:border-white"></textarea>
+                        </div>
+                    
+                        <!-- Botão de Enviar -->
+                        <input type="hidden" name="redirectTo" value="https://clmgomes.github.io/leofotografia/tks.html">
+                        <button type="submit" class="w-full bg-white text-black py-3 rounded hover:bg-transparent hover:text-white border border-white transition duration-300">
+                            Enviar Mensagem
+                        </button>
+                    
+                        <!-- Campo oculto para desabilitar CAPTCHA (opcional) -->
+
+                        <input type="hidden" name="_captcha" value="false">
+                    </form>
+					
+
+                    
+                </div>
+            </div>
+        </div>
+    </section>
+	
+	<div id="lightbox" class="lightbox">
+    <div class="lightbox-content">
+        <img id="lightbox-img" class="lightbox-img" src="" alt="">
+        <button class="close-lightbox">&times;</button>
+    </div>
+	</div>
+
+    <!-- Footer -->
+    <footer class="py-8 px-4 text-left border-t border-gray-800">
+        <div class="container mx-auto">
+            <p>&copy; 2025 Leo Fotografias. Todos os direitos reservados.</p>
+			<p style="color: #ea5004; font-family: 'Fredoka', sans-serif;"><strong>( * ) Tecnocaqui</strong></p>
+        </div>
+		
+    </footer>
+	
+	
+    <script>
+        // Mobile menu toggle
+        document.getElementById('menu-toggle').addEventListener('click', function() {
+            const menu = document.getElementById('mobile-menu');
+            menu.classList.toggle('hidden');
+        });
+        
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                const targetElement = document.querySelector(targetId);
+                
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 80,
+                        behavior: 'smooth'
+                    });
+                    
+                    // Close mobile menu if open
+                    const mobileMenu = document.getElementById('mobile-menu');
+                    if (!mobileMenu.classList.contains('hidden')) {
+                        mobileMenu.classList.add('hidden');
+                    }
+                }
+            });
+        });
+        
+        // Change navbar background on scroll
+        window.addEventListener('scroll', function() {
+            const nav = document.querySelector('nav');
+            if (window.scrollY > 50) {
+                nav.classList.add('shadow-lg');
+            } else {
+                nav.classList.remove('shadow-lg');
+            }
+        });
+		
+		
+		
+				// Função para selecionar um item aleatório de um array
+		function getRandomItem(array) {
+			return array[Math.floor(Math.random() * array.length)];
+		}
+
+		// Função para carregar imagens aleatórias
+		function loadRandomImages() {
+			// Defina os conjuntos de imagens para cada categoria
+			const imageSets = {
+				retrato: [
+					'https://clmgomes.github.io/leofotografia/retrato1.jpg',
+					'https://clmgomes.github.io/leofotografia/retrato2.jpg',
+					'https://clmgomes.github.io/leofotografia/retrato3.jpg'
+				],
+				aniversario: [
+					'https://clmgomes.github.io/leofotografia/aniversario1.jpg',
+					'https://clmgomes.github.io/leofotografia/aniversario2.jpg',
+					'https://clmgomes.github.io/leofotografia/aniversario3.jpg'
+				],
+				ensaio: [
+					'https://clmgomes.github.io/leofotografia/ensaio1.jpg',
+					'https://clmgomes.github.io/leofotografia/ensaio2.jpg',
+					'https://clmgomes.github.io/leofotografia/ensaio3.jpg'
+				],
+				infancia: [
+					'https://clmgomes.github.io/leofotografia/infancia1.jpg',
+					'https://clmgomes.github.io/leofotografia/infancia2.jpg',
+					'https://clmgomes.github.io/leofotografia/infancia3.jpg'
+				],
+				esporte: [
+					'https://clmgomes.github.io/leofotografia/esporte1.jpg',
+					'https://clmgomes.github.io/leofotografia/esporte2.jpg',
+					'https://clmgomes.github.io/leofotografia/esporte3.jpg'
+				],
+				produto: [
+					'https://clmgomes.github.io/leofotografia/produto1.jpg',
+					'https://clmgomes.github.io/leofotografia/produto2.jpg',
+					'https://clmgomes.github.io/leofotografia/produto3.jpg'
+				]
+			};
+
+			// Carregar imagens aleatórias para cada categoria
+			document.querySelector('.retrato-img').src = getRandomItem(imageSets.retrato);
+			document.querySelector('.aniversario-img').src = getRandomItem(imageSets.aniversario);
+			document.querySelector('.ensaio-img').src = getRandomItem(imageSets.ensaio);
+			document.querySelector('.infancia-img').src = getRandomItem(imageSets.infancia);
+			document.querySelector('.esporte-img').src = getRandomItem(imageSets.esporte);
+			document.querySelector('.produto-img').src = getRandomItem(imageSets.produto);
+		}
+
+		// Chamar a função quando a página carregar
+		window.addEventListener('DOMContentLoaded', loadRandomImages);
+		
+		
+		
+		
+		
+			// Lightbox functionality
+	document.addEventListener('DOMContentLoaded', function() {
+		// Carregar imagens aleatórias primeiro
+		loadRandomImages();
+		
+		// Depois configurar o lightbox
+		const galleryImages = document.querySelectorAll('.gallery-item img');
+		const lightbox = document.getElementById('lightbox');
+		const lightboxImg = document.getElementById('lightbox-img');
+		const closeLightbox = document.querySelector('.close-lightbox');
+		
+		galleryImages.forEach(img => {
+			img.addEventListener('click', function() {
+				lightbox.style.display = 'flex';
+				lightboxImg.src = this.src;
+				lightboxImg.alt = this.alt;
+				document.body.style.overflow = 'hidden';
+			});
+		});
+		
+		// Restante do código do lightbox permanece o mesmo...
+		closeLightbox.addEventListener('click', function() {
+			lightbox.style.display = 'none';
+			document.body.style.overflow = 'auto';
+		});
+		
+		lightbox.addEventListener('click', function(e) {
+			if (e.target === lightbox) {
+				lightbox.style.display = 'none';
+				document.body.style.overflow = 'auto';
+			}
+		});
+		
+		document.addEventListener('keydown', function(e) {
+			if (e.key === 'Escape' && lightbox.style.display === 'flex') {
+				lightbox.style.display = 'none';
+				document.body.style.overflow = 'auto';
+			}
+		});
+	});
+		
+    </script>
+</body>
+</html>
