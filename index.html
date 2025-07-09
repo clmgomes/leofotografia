@@ -102,60 +102,94 @@
         }
 		
 		
-		/* Lightbox styles */
-		.lightbox {
-			display: none;
-			position: fixed;
-			z-index: 9999;
-			top: 0;
-			left: 0;
-			width: 100%;
-			height: 100%;
-			background-color: rgba(0, 0, 0, 0.9);
-			justify-content: center;
-			align-items: center;
-		}
+  /* Lightbox styles */
+        .lightbox {
+            display: none;
+            position: fixed;
+            z-index: 9999;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.9);
+            justify-content: center;
+            align-items: center;
+        }
 
-		.lightbox-content {
-			max-width: 90%;
-			max-height: 90%;
-			position: relative;
-		}
+        .lightbox-content {
+            max-width: 90%;
+            max-height: 90%;
+            position: relative;
+        }
 
-		.lightbox-img {
-			max-width: 100%;
-			max-height: 90vh;
-			display: block;
-			margin: 0 auto;
-		}
+        .lightbox-img {
+            max-width: 100%;
+            max-height: 90vh;
+            display: block;
+            margin: 0 auto;
+        }
 
-		.close-lightbox {
-			position: absolute;
-			top: -40px;
-			right: 0;
-			color: white;
-			font-size: 30px;
-			cursor: pointer;
-			background: none;
-			border: none;
-		}
+        .close-lightbox {
+            position: absolute;
+            top: -40px;
+            right: 0;
+            color: white;
+            font-size: 30px;
+            cursor: pointer;
+            background: none;
+            border: none;
+        }
 
-		.close-lightbox:hover {
-			color: #ccc;
-		}
+        .close-lightbox:hover {
+            color: #ccc;
+        }
 
-		@media (max-width: 768px) {
-			.lightbox-content {
-				max-width: 95%;
-			}
-			
-			.close-lightbox {
-				top: -30px;
-				font-size: 25px;
-			}
-		}
-		
-		
+        /* Navigation arrows */
+        .lightbox-nav {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            color: white;
+            font-size: 40px;
+            cursor: pointer;
+            background: rgba(0, 0, 0, 0.5);
+            width: 60px;
+            height: 60px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border-radius: 50%;
+            border: none;
+        }
+
+        .lightbox-nav:hover {
+            background: rgba(0, 0, 0, 0.8);
+        }
+
+        .lightbox-prev {
+            left: 20px;
+        }
+
+        .lightbox-next {
+            right: 20px;
+        }
+
+        @media (max-width: 768px) {
+            .lightbox-content {
+                max-width: 95%;
+            }
+            
+            .close-lightbox {
+                top: -30px;
+                font-size: 25px;
+            }
+            
+            .lightbox-nav {
+                width: 40px;
+                height: 40px;
+                font-size: 25px;
+            }
+        }
     </style>
 </head>
 <body>
@@ -439,10 +473,12 @@
     </section>
 	
 	<div id="lightbox" class="lightbox">
-    <div class="lightbox-content">
-        <img id="lightbox-img" class="lightbox-img" src="" alt="">
-        <button class="close-lightbox">&times;</button>
-    </div>
+        <div class="lightbox-content">
+            <button class="lightbox-nav lightbox-prev">&#10094;</button>
+            <img id="lightbox-img" class="lightbox-img" src="" alt="">
+            <button class="lightbox-nav lightbox-next">&#10095;</button>
+            <button class="close-lightbox">&times;</button>
+        </div>
 	</div>
 
     <!-- Footer -->
@@ -497,7 +533,7 @@
 		
 		
 		
-				// Função para selecionar um item aleatório de um array
+		// Função para selecionar um item aleatório de um array
 		function getRandomItem(array) {
 			return array[Math.floor(Math.random() * array.length)];
 		}
@@ -591,6 +627,136 @@
 			}
 		});
 	});
+	
+	        // Lightbox functionality with navigation
+        document.addEventListener('DOMContentLoaded', function() {
+            // Carregar imagens aleatórias primeiro
+            loadRandomImages();
+            
+            // Configurar o lightbox com navegação por categoria
+            const galleryItems = document.querySelectorAll('.gallery-item');
+            const lightbox = document.getElementById('lightbox');
+            const lightboxImg = document.getElementById('lightbox-img');
+            const closeLightbox = document.querySelector('.close-lightbox');
+            const prevButton = document.querySelector('.lightbox-prev');
+            const nextButton = document.querySelector('.lightbox-next');
+            
+            let currentImageIndex = 0;
+            let currentCategoryImages = [];
+            
+            // Objeto com os conjuntos de imagens por categoria
+            const imageSets = {
+                retrato: [
+                    'https://clmgomes.github.io/leofotografia/imagens/retrato.jpg',
+                ],
+                aniversario: [
+                    'https://clmgomes.github.io/leofotografia/imagens/aniversario1.jpg',
+                    'https://clmgomes.github.io/leofotografia/imagens/aniversario2.jpg',
+                    'https://clmgomes.github.io/leofotografia/imagens/aniversario3.jpg'
+                ],
+                ensaio: [
+                    'https://clmgomes.github.io/leofotografia/imagens/ensaio1.jpg',
+                    'https://clmgomes.github.io/leofotografia/imagens/ensaio2.jpg',
+                    'https://clmgomes.github.io/leofotografia/imagens/ensaio3.jpg'
+                ],
+                infancia: [
+                    'https://clmgomes.github.io/leofotografia/imagens/ciclismo1.jpg',
+                    'https://clmgomes.github.io/leofotografia/imagens/ciclismo2.jpg',
+                    'https://clmgomes.github.io/leofotografia/imagens/ciclismo3.jpg'
+                ],
+                esporte: [
+                    'https://clmgomes.github.io/leofotografia/imagens/corrida1.jpg',
+                    'https://clmgomes.github.io/leofotografia/imagens/corrida2.jpg',
+                    'https://clmgomes.github.io/leofotografia/imagens/corrida3.jpeg'
+                ],
+                produto: [
+                    'https://clmgomes.github.io/leofotografia/imagens/treino1.jpg',
+                    'https://clmgomes.github.io/leofotografia/imagens/treino3.jpg'
+                ]
+            };
+            
+            // Mapeamento das classes para as categorias
+            const classToCategory = {
+                'retrato-img': 'retrato',
+                'aniversario-img': 'aniversario',
+                'ensaio-img': 'ensaio',
+                'infancia-img': 'infancia',
+                'esporte-img': 'esporte',
+                'produto-img': 'produto'
+            };
+            
+            // Abrir lightbox quando uma imagem é clicada
+            galleryItems.forEach((item, index) => {
+                const img = item.querySelector('img');
+                if (img) {
+                    img.addEventListener('click', function() {
+                        // Determinar a categoria da imagem clicada
+                        const imgClass = Array.from(img.classList).find(cls => classToCategory[cls]);
+                        const category = classToCategory[imgClass];
+                        
+                        // Definir as imagens da categoria atual
+                        currentCategoryImages = imageSets[category];
+                        
+                        // Encontrar o índice da imagem clicada no conjunto da categoria
+                        currentImageIndex = currentCategoryImages.findIndex(url => url === img.src);
+                        
+                        updateLightboxImage();
+                        lightbox.style.display = 'flex';
+                        document.body.style.overflow = 'hidden';
+                    });
+                }
+            });
+            
+            // Função para atualizar a imagem no lightbox
+            function updateLightboxImage() {
+                if (currentCategoryImages[currentImageIndex]) {
+                    lightboxImg.src = currentCategoryImages[currentImageIndex];
+                    lightboxImg.alt = ''; // Você pode adicionar alt texts se necessário
+                }
+            }
+            
+            // Navegação entre imagens da mesma categoria
+            prevButton.addEventListener('click', function(e) {
+                e.stopPropagation();
+                currentImageIndex = (currentImageIndex - 1 + currentCategoryImages.length) % currentCategoryImages.length;
+                updateLightboxImage();
+            });
+            
+            nextButton.addEventListener('click', function(e) {
+                e.stopPropagation();
+                currentImageIndex = (currentImageIndex + 1) % currentCategoryImages.length;
+                updateLightboxImage();
+            });
+            
+            // Fechar lightbox
+            closeLightbox.addEventListener('click', function() {
+                lightbox.style.display = 'none';
+                document.body.style.overflow = 'auto';
+            });
+            
+            lightbox.addEventListener('click', function(e) {
+                if (e.target === lightbox) {
+                    lightbox.style.display = 'none';
+                    document.body.style.overflow = 'auto';
+                }
+            });
+            
+            // Navegação por teclado
+            document.addEventListener('keydown', function(e) {
+                if (lightbox.style.display === 'flex') {
+                    if (e.key === 'Escape') {
+                        lightbox.style.display = 'none';
+                        document.body.style.overflow = 'auto';
+                    } else if (e.key === 'ArrowLeft') {
+                        currentImageIndex = (currentImageIndex - 1 + currentCategoryImages.length) % currentCategoryImages.length;
+                        updateLightboxImage();
+                    } else if (e.key === 'ArrowRight') {
+                        currentImageIndex = (currentImageIndex + 1) % currentCategoryImages.length;
+                        updateLightboxImage();
+                    }
+                }
+            });
+        });
 		
     </script>
 </body>
