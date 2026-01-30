@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gerador de Orçamento - Studio Santana</title>
+    <style>
+        :root {
+            --bg-color: #efedeb; /* O tom bege das suas imagens */
+            --text-color: #1a1a1a;
+        }
+
+        @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;700&display=swap');
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background-color: #333;
+            margin: 0;
+            padding: 0;
+            color: var(--text-color);
+        }
+
+        /* Configuração da Folha A4 */
+        .page {
+            width: 210mm;
+            height: 297mm;
+            padding: 20mm;
+            margin: 10mm auto;
+            background: var(--bg-color);
+            box-shadow: 0 0 15px rgba(0,0,0,0.3);
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            box-sizing: border-box;
+            position: relative;
+            page-break-after: always;
+            overflow: hidden;
+        }
+
+        /* Campos editáveis */
+        [contenteditable="true"] {
+            outline: none;
+            border: 1px dashed transparent;
+        }
+        [contenteditable="true"]:hover { border-color: #aaa; }
+
+        /* Estilização das Imagens */
+        .img-container {
+            background-size: cover;
+            background-position: center;
+            background-color: #ddd;
+            cursor: pointer;
+            transition: opacity 0.3s;
+        }
+        .img-container:hover { opacity: 0.8; }
+
+        /* Título Vertical Estilo "SOBRE NÓS" */
+        .vertical-title {
+            writing-mode: vertical-rl;
+            font-size: 65px;
+            font-weight: 700;
+            letter-spacing: 15px;
+            text-align: right;
+            text-transform: uppercase;
+            height: 100%;
+            display: flex;
+            align-items: center;
+        }
+
+        /* Página 1 Layout */
+        .p1-header { grid-column: 1 / span 2; display: grid; grid-template-columns: 1.2fr 0.8fr; height: 500px; gap: 20px; }
+        .p1-main-img { height: 100%; width: 100%; }
+        
+        /* Página 2 Layout */
+        .grid-collage { grid-column: 1; display: grid; gap: 10px; }
+        .p2-right-col { grid-column: 2; display: flex; flex-direction: column; justify-content: space-between; }
+
+        .btn-print {
+            position: fixed; bottom: 20px; right: 20px; padding: 15px 25px;
+            background: #000; color: #fff; border: none; border-radius: 5px;
+            cursor: pointer; z-index: 100; font-weight: bold;
+        }
+
+        @media print {
+            .btn-print { display: none; }
+            body { background: white; }
+            .page { margin: 0; box-shadow: none; }
+            [contenteditable="true"]:hover { border-color: transparent; }
+        }
+    </style>
+</head>
+<body>
+
+    <button class="btn-print" onclick="window.print()">GERAR PDF / IMPRIMIR</button>
+
+    <div class="page">
+        <div class="p1-header">
+            <div class="img-container p1-main-img" 
+                 onclick="changeImage(this)" 
+                 style="background-image: url('https://images.unsplash.com/photo-1511795409834-ef04bbd61622?q=80&w=1000');">
+            </div>
+            <div class="vertical-title">SOBRE NÓS</div>
+        </div>
+
+        <div style="grid-column: 1;">
+            <div style="font-weight: 700; letter-spacing: 3px;" contenteditable="true">STUDIO SANTANA</div>
+            <div style="font-size: 10px; letter-spacing: 2px; margin-bottom: 20px;" contenteditable="true">FOTOGRAFIA CRIATIVA</div>
+            
+            <div style="font-size: 13px; line-height: 1.8; text-align: justify;" contenteditable="true">
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed at dolor et tellus posuere scelerisque. Curabitur vel magna sollicitudin dolor interdum congue id vitae lacus. <br><br>
+                Nossa paixão é eternizar momentos únicos através de um olhar sensível e artístico. Cada detalhe importa.
+            </div>
+        </div>
+
+        <div style="grid-column: 2; display: flex; flex-direction: column; align-items: flex-end; gap: 15px;">
+            <div class="img-container" onclick="changeImage(this)" style="width: 180px; height: 120px; background-image: url('https://images.unsplash.com/photo-1519741497674-611481863552?q=80&w=500');"></div>
+            <small contenteditable="true">Joyce Schwartz</small>
+            
+            <div class="img-container" onclick="changeImage(this)" style="width: 180px; height: 120px; background-image: url('https://images.unsplash.com/photo-1516035069371-29a1b244cc32?q=80&w=500');"></div>
+            <small contenteditable="true">Alexandre Aronowitz</small>
+        </div>
+    </div>
+
+    <div class="page">
+        <div class="grid-collage">
+            <div class="img-container" onclick="changeImage(this)" style="height: 120px; background-image: url('https://images.unsplash.com/photo-1515934751635-c81c6bc9a2d8?q=80&w=500');"></div>
+            <div class="img-container" onclick="changeImage(this)" style="height: 120px; background-image: url('https://images.unsplash.com/photo-1465495910483-34a1d23939f6?q=80&w=500');"></div>
+            <div class="img-container" onclick="changeImage(this)" style="height: 200px; background-image: url('https://images.unsplash.com/photo-1519225421980-715cb0215aed?q=80&w=500');"></div>
+        </div>
+
+        <div class="p2-right-col">
+            <div class="img-container" onclick="changeImage(this)" style="height: 300px; background-image: url('https://images.unsplash.com/photo-1522673607200-1648482ce486?q=80&w=500');"></div>
+            <div style="text-align: right;">
+                <div style="font-weight: 700; letter-spacing: 2px;" contenteditable="true">STUDIO SANTANA</div>
+                <div style="font-size: 10px; letter-spacing: 2px;" contenteditable="true">FOTOGRAFIA CRIATIVA</div>
+                <h1 style="font-size: 35px; letter-spacing: 8px; text-transform: uppercase; margin-top: 10px;" contenteditable="true">Casamento</h1>
+            </div>
+        </div>
+
+        <div class="img-container" onclick="changeImage(this)" 
+             style="grid-column: 1 / span 2; height: 350px; background-image: url('https://images.unsplash.com/photo-1519741497674-611481863552?q=80&w=1200');">
+        </div>
+    </div>
+
+    <script>
+        // Função para trocar imagem ao clicar
+        function changeImage(element) {
+            const currentUrl = element.style.backgroundImage.slice(5, -2);
+            const newUrl = prompt("Cole aqui o link da nova imagem:", currentUrl);
+            if (newUrl) {
+                element.style.backgroundImage = `url('${newUrl}')`;
+            }
+        }
+    </script>
+</body>
+</html>
