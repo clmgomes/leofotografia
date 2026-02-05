@@ -4,16 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <title>Leo Fotografia | Portfólio</title>
+    <meta name="description" content="Leo Fotografia - Fotógrafo em Bento Gonçalves e Serra Gaúcha.">
 
-    <meta name="description" content="Leo Fotografia - Fotógrafo em Bento Gonçalves e Serra Gaúcha. Ensaios, eventos, esporte e fotografia autoral.">
-
-    <!-- Tailwind -->
     <script src="https://cdn.tailwindcss.com"></script>
-
-    <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-
-    <!-- Google Font -->
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@200;300;400;500&display=swap" rel="stylesheet">
 
     <style>
@@ -21,80 +15,60 @@
             font-family: 'Montserrat', sans-serif;
             background: #ffffff;
             color: #1a1a1a;
-            overflow-x: hidden;
             scroll-behavior: smooth;
         }
 
-        /* ---------------- NAV ---------------- */
-        .nav-link {
-            position: relative;
-            cursor: pointer;
-            transition: color 0.3s;
-        }
-
-        .nav-link.active {
-            color: #000;
-        }
-
+        /* Nav & Links */
+        .nav-link { position: relative; cursor: pointer; transition: color 0.3s; }
+        .nav-link.active { color: #000; font-weight: 400; }
         .nav-link.active::after {
-            content: '';
-            position: absolute;
-            bottom: -6px;
-            left: 0;
-            width: 100%;
-            height: 1px;
-            background: #000;
+            content: ''; position: absolute; bottom: -6px; left: 0;
+            width: 100%; height: 1px; background: #000;
         }
 
-        /* ---------------- MASONRY ---------------- */
+        /* Masonry Grid */
         .masonry-container {
             column-count: 2;
-            column-gap: 15px;
+            column-gap: 20px;
         }
+        @media (min-width: 768px) { .masonry-container { column-count: 3; } }
+        @media (min-width: 1024px) { .masonry-container { column-count: 4; } }
 
-        @media (min-width: 768px) {
-            .masonry-container { column-count: 3; }
-        }
-
-        @media (min-width: 1024px) {
-            .masonry-container { column-count: 4; }
-        }
-
-        /* -------- GALERIA OTIMIZADA -------- */
+        /* Galeria e Efeito Fade-In */
         .gallery-item {
             break-inside: avoid;
-            margin-bottom: 15px;
+            margin-bottom: 20px;
+            background: #fcfcfc;
             cursor: pointer;
             overflow: hidden;
             position: relative;
-            background: #ffffff; /* Fundo branco para placeholder */
+            min-height: 100px;
         }
 
-        /* Imagem começa invisível */
         .gallery-item img {
             width: 100%;
             height: auto;
             display: block;
-            transition: all 0.6s ease;
-            opacity: 0;
+            opacity: 0; /* Começa invisível para o fade-in */
+            transform: translateY(15px); /* Leve subida no surgimento */
+            transition: opacity 0.8s cubic-bezier(0.4, 0, 0.2, 1), 
+                        transform 0.8s cubic-bezier(0.4, 0, 0.2, 1),
+                        filter 0.4s ease, scale 0.6s ease;
         }
 
-        /* Quando tem a classe 'loaded', fica visível */
+        /* Classe ativada pelo JS ao carregar */
         .gallery-item img.loaded {
-            opacity: 1 !important;
-            transition: opacity 0.5s ease;
+            opacity: 1;
+            transform: translateY(0);
         }
 
-        .gallery-item:hover img {
-            opacity: 0.35;
+        .gallery-item:hover img.loaded {
+            opacity: 0.5;
             filter: grayscale(100%);
-            transform: scale(1.03);
+            scale: 1.05;
         }
 
-        /* SOLUÇÃO SIMPLES: Remover o placeholder complexo */
-        /* Vamos usar apenas o fundo branco do próprio .gallery-item */
-
-        /* ---------------- LIGHTBOX ---------------- */
+        /* Lightbox */
         #lightbox {
             display: none;
             position: fixed;
@@ -103,139 +77,74 @@
             z-index: 1000;
             justify-content: center;
             align-items: center;
+            cursor: zoom-out;
         }
 
-        /* ---------------- CONTATO ---------------- */
-        #contact-page {
-            display: none;
-            min-height: 80vh;
-            background: #fff;
-        }
-
-        .contact-grid {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 80px 32px;
-            display: grid;
-            grid-template-columns: 1fr;
-            gap: 60px;
-            align-items: center;
-        }
-
-        @media (min-width: 768px) {
-            .contact-grid {
-                grid-template-columns: 1fr 1fr;
-                gap: 120px;
-            }
-        }
-
-        .contact-photo {
-            width: 100%;
-            height: 600px;
-            object-fit: cover;
-        }
-
-        .contact-label {
-            font-size: 11px;
-            letter-spacing: 0.15em;
-            text-transform: uppercase;
-            font-weight: 500;
-            margin-bottom: 4px;
-        }
-
-        .contact-link {
-            color: #666;
-            border-bottom: 1px solid #ddd;
-            text-decoration: none;
-            padding-bottom: 2px;
-            transition: all 0.3s;
-        }
-
-        .contact-link:hover {
-            color: #000;
-            border-color: #000;
-        }
+        /* Seções */
+        #contact-page { display: none; }
+        .contact-photo { width: 100%; height: 600px; object-fit: cover; }
     </style>
 </head>
 
 <body>
 
-<!-- ================= NAV ================= -->
 <nav class="fixed w-full z-[100] bg-white/90 backdrop-blur-md border-b border-gray-100">
-    <div class="container mx-auto px-8 py-8 md:py-10 flex flex-col md:flex-row justify-between items-center gap-6">
-
-        <a href="#" onclick="showSection('galeria')" class="block">
-            <img src="https://clmgomes.github.io/leofotografia/imagens/logoleo.png"
-                 alt="Leo Fotografia"
-                 class="h-10 md:h-12 object-contain">
+    <div class="container mx-auto px-8 py-6 md:py-8 flex flex-col md:flex-row justify-between items-center gap-6">
+        <a href="#" onclick="showSection('galeria')" class="hover:opacity-70 transition-opacity">
+            <img src="https://clmgomes.github.io/leofotografia/imagens/logoleo.png" alt="Leo Fotografia" class="h-8 md:h-10 object-contain">
         </a>
-
-        <div class="flex space-x-6 md:space-x-10 text-[10px] md:text-[11px] tracking-[0.2em] uppercase text-gray-400 font-light items-center">
-            <span class="nav-link active" onclick="filterGallery('todos', this)">Visão geral</span>
+        <div class="flex space-x-6 md:space-x-10 text-[10px] md:text-[11px] tracking-[0.2em] uppercase text-gray-400 items-center font-light">
+            <span class="nav-link active" onclick="filterGallery('todos', this)">Portfólio</span>
             <span class="nav-link" onclick="filterGallery('pessoas', this)">Pessoas</span>
             <span class="nav-link" onclick="filterGallery('coisas', this)">Coisas</span>
             <span class="nav-link" onclick="showSection('contato', this)">Contato</span>
-            <a href="https://www.instagram.com/leofotografiabg" target="_blank" class="text-sm text-black">
-                <i class="fab fa-instagram"></i>
+            <a href="https://www.instagram.com/leofotografiabg" target="_blank" class="text-black hover:text-gray-500">
+                <i class="fab fa-instagram text-lg"></i>
             </a>
         </div>
     </div>
 </nav>
 
-<div class="h-40 md:h-48"></div>
+<div class="h-32 md:h-40"></div>
 
-<!-- ================= GALERIA ================= -->
 <main id="galeria-sec">
-    <header class="text-center px-4 mb-16">
-        <p class="text-sm md:text-base font-[150] tracking-[0.15em] text-gray-400 uppercase">
-            Fotógrafo em Bento Gonçalves & Serra Gaúcha
+    <header class="text-center px-4 mb-12">
+        <p class="text-[11px] tracking-[0.3em] text-gray-400 uppercase font-light">
+            Bento Gonçalves & Serra Gaúcha
         </p>
     </header>
-
-    <section class="px-3 md:px-12 pb-20">
+    <section class="px-4 md:px-12 pb-20">
         <div class="masonry-container" id="gallery-grid"></div>
     </section>
 </main>
 
-<!-- ================= CONTATO ================= -->
 <section id="contact-page">
-    <div class="contact-grid">
-        <div class="space-y-12">
-            <h2 class="text-5xl font-light">Contato</h2>
-
-            <p class="text-gray-500 font-light max-w-sm">
-                Orçamentos, parcerias ou apenas uma boa conversa sobre fotografia.
+    <div class="max-w-6xl mx-auto px-8 py-20 grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
+        <div class="space-y-10">
+            <h2 class="text-5xl font-extralight tracking-tight">Contato</h2>
+            <p class="text-gray-500 font-light leading-relaxed">
+                Disponível para ensaios, eventos e projetos autorais. Vamos conversar sobre sua ideia?
             </p>
-
-            <div class="space-y-10">
+            <div class="space-y-6">
                 <div>
-                    <p class="contact-label">Email</p>
-                    <a href="mailto:clmgomes@gmail.com" class="contact-link">clmgomes@gmail.com</a>
+                    <p class="text-[10px] uppercase tracking-widest text-gray-400 mb-1">Email</p>
+                    <a href="mailto:clmgomes@gmail.com" class="text-lg font-light border-b border-gray-200 hover:border-black transition-all">clmgomes@gmail.com</a>
                 </div>
-
                 <div>
-                    <p class="contact-label">WhatsApp</p>
-                    <a href="https://wa.me/5554999257279" class="contact-link">(54) 99925-7279</a>
-                </div>
-
-                <div>
-                    <p class="contact-label">Localização</p>
-                    <p class="text-gray-600 font-light">Bento Gonçalves, RS</p>
+                    <p class="text-[10px] uppercase tracking-widest text-gray-400 mb-1">WhatsApp</p>
+                    <a href="https://wa.me/5554999257279" class="text-lg font-light border-b border-gray-200 hover:border-black transition-all">(54) 99925-7279</a>
                 </div>
             </div>
         </div>
-
-        <img src="https://clmgomes.github.io/leofotografia/capa.jpg" alt="Leo Gomes" class="contact-photo shadow-sm">
+        <img src="https://clmgomes.github.io/leofotografia/capa.jpg" alt="Leo Gomes" class="contact-photo grayscale">
     </div>
 </section>
 
-<!-- ================= LIGHTBOX ================= -->
 <div id="lightbox" onclick="closeLB()">
-    <button class="absolute top-10 right-10 text-4xl font-thin">&times;</button>
-    <img id="lb-img" class="max-w-[90vw] max-h-[85vh] object-contain">
+    <button class="absolute top-10 right-10 text-3xl font-thin hover:rotate-90 transition-transform">&times;</button>
+    <img id="lb-img" class="max-w-[90vw] max-h-[85vh] object-contain shadow-2xl">
 </div>
 
-<!-- ================= SCRIPT CORRIGIDO ================= -->
 <script>
 const imageSets = {
     pessoas: [
@@ -286,124 +195,56 @@ const imageSets = {
     ]
 };
 
-let currentImages = [];
-let loadedImages = new Set();
-
-/* ================= CARREGAMENTO SIMPLES ================= */
-
-function loadImage(url) {
-    return new Promise((resolve, reject) => {
-        if (loadedImages.has(url)) {
-            resolve();
-            return;
-        }
-        
-        const img = new Image();
-        img.onload = () => {
-            loadedImages.add(url);
-            resolve();
-        };
-        img.onerror = reject;
-        img.src = url;
-    });
-}
-
-async function loadInitialImages(urls) {
-    // Carregar as primeiras 8 imagens imediatamente
-    const initialBatch = urls.slice(0, 8);
-    const promises = initialBatch.map(url => loadImage(url));
-    await Promise.all(promises);
-    return initialBatch;
-}
-
-function lazyLoadImages() {
-    const images = document.querySelectorAll('.gallery-item img:not(.loaded)');
-    
+// Lazy Loading Inteligente
+function initLazyLoad() {
     const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
                 const img = entry.target;
-                const url = img.dataset.src;
-                
-                if (url) {
-                    loadImage(url).then(() => {
-                        img.src = url;
-                        img.classList.add('loaded');
-                    });
-                }
-                
+                img.src = img.dataset.src;
+                img.onload = () => img.classList.add('loaded');
                 observer.unobserve(img);
             }
         });
-    }, {
-        rootMargin: '100px',
-        threshold: 0.1
-    });
-    
-    images.forEach(img => observer.observe(img));
+    }, { rootMargin: '200px' });
+
+    document.querySelectorAll('.gallery-item img').forEach(img => observer.observe(img));
 }
 
-/* ================= FILTRAR GALERIA ================= */
-async function filterGallery(tipo, btn) {
+function filterGallery(tipo, btn) {
     showSection('galeria', btn);
-    
     const grid = document.getElementById('gallery-grid');
     grid.innerHTML = '';
     
-    // Selecionar imagens
-    if (tipo === 'pessoas') currentImages = [...imageSets.pessoas];
-    else if (tipo === 'coisas') currentImages = [...imageSets.coisas];
-    else currentImages = [...imageSets.pessoas, ...imageSets.coisas];
+    let images = (tipo === 'todos') 
+        ? [...imageSets.pessoas, ...imageSets.coisas] 
+        : [...imageSets[tipo]];
     
-    // Embaralhar
-    currentImages.sort(() => Math.random() - 0.5);
-    
-    // Criar elementos
-    currentImages.forEach(url => {
+    images.sort(() => Math.random() - 0.5);
+
+    images.forEach(url => {
         const item = document.createElement('div');
         item.className = 'gallery-item';
-        
-        const img = document.createElement('img');
-        img.dataset.src = url;
-        img.alt = '';
-        img.style.opacity = '0'; // Começa invisível
-        
-        item.onclick = () => openLB(url);
-        item.appendChild(img);
+        item.innerHTML = `<img data-src="${url}" alt="Foto Leo Fotografia" onclick="openLB('${url}')">`;
         grid.appendChild(item);
     });
-    
-    // 1. Carregar e mostrar primeiras imagens imediatamente
-    const loadedUrls = await loadInitialImages(currentImages);
-    
-    // 2. Mostrar as primeiras imagens já carregadas
-    const firstImages = grid.querySelectorAll('img');
-    firstImages.forEach((img, index) => {
-        if (index < loadedUrls.length) {
-            img.src = currentImages[index];
-            img.classList.add('loaded');
-        }
-    });
-    
-    // 3. Configurar lazy loading para o resto
-    lazyLoadImages();
+
+    initLazyLoad();
 }
 
-/* ================= SEÇÕES ================= */
 function showSection(tipo, btn) {
     if (btn) {
         document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
         btn.classList.add('active');
     }
-
     document.getElementById('galeria-sec').style.display = tipo === 'contato' ? 'none' : 'block';
     document.getElementById('contact-page').style.display = tipo === 'contato' ? 'block' : 'none';
-    window.scrollTo(0, 0);
+    window.scrollTo(0,0);
 }
 
-/* ================= LIGHTBOX ================= */
 function openLB(url) {
-    document.getElementById('lb-img').src = url;
+    const lbImg = document.getElementById('lb-img');
+    lbImg.src = url;
     document.getElementById('lightbox').style.display = 'flex';
     document.body.style.overflow = 'hidden';
 }
@@ -413,11 +254,6 @@ function closeLB() {
     document.body.style.overflow = 'auto';
 }
 
-document.addEventListener('keydown', e => {
-    if (e.key === 'Escape') closeLB();
-});
-
-// Inicializar
 window.onload = () => filterGallery('todos');
 </script>
 
