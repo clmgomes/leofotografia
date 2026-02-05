@@ -202,7 +202,11 @@ function initLazyLoad() {
             if (entry.isIntersecting) {
                 const img = entry.target;
                 img.src = img.dataset.src;
-                img.onload = () => img.classList.add('loaded');
+                    img.onload = () => {
+                        setTimeout(() => {
+                            img.classList.add('loaded');
+                        }, 2000);
+                    };
                 observer.unobserve(img);
             }
         });
@@ -259,5 +263,4 @@ window.onload = () => filterGallery('todos');
 
 </body>
 </html>
-
 
