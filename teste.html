@@ -94,16 +94,19 @@
             background: #000;
         }
 
+
         /* Página de Contato Imersiva */
         #contact-page {
             display: none;
             position: fixed;
             inset: 0;
             z-index: 40;
-            background: url('https://clmgomes.github.io/leofotografia/capa.jpg') no-repeat center center;
+            background: url('https://clmgomes.github.io/leofotografia/capa.jpg') no-repeat;
+            /* Alteração aqui: center (horizontal) e 50px (vertical a partir do topo) */
+            background-position: center 50px; 
             background-size: cover;
             filter: grayscale(100%);
-        }
+}
 
         #contact-page::before {
             content: '';
