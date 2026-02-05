@@ -2,101 +2,134 @@
 <html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=none">
-    <title>Leo Fotografia | Portfólio Profissional</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>Leo Fotografia | Portfólio</title>
 
-    <meta name="description" content="Leo Fotografia - Fotógrafo em Bento Gonçalves e Serra Gaúcha. Especializado em ensaios, eventos e esporte.">
+    <meta name="description" content="Leo Fotografia - Fotógrafo em Bento Gonçalves e Serra Gaúcha. Ensaios, eventos, esporte e fotografia autoral.">
+
+    <!-- Tailwind -->
     <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@200;300;400;600&display=swap" rel="stylesheet">
+
+    <!-- Google Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@200;300;400;500&display=swap" rel="stylesheet">
 
     <style>
         body {
             font-family: 'Montserrat', sans-serif;
-            background-color: #ffffff;
+            background: #ffffff;
             color: #1a1a1a;
-            scroll-behavior: smooth;
             overflow-x: hidden;
+            scroll-behavior: smooth;
         }
 
-        .tracking-ultra { letter-spacing: 0.5em; }
-        
+        /* ---------------- ANIMAÇÕES ---------------- */
         @keyframes fadeInUp {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
         .animate-item {
-            animation: fadeInUp 0.7s ease-out forwards;
+            animation: fadeInUp 1.2s ease-out forwards;
             opacity: 0;
         }
 
-        /* Layout Masonry */
+        /* ---------------- NAV ---------------- */
+        .nav-link {
+            position: relative;
+            cursor: pointer;
+            transition: color 0.3s;
+        }
+
+        .nav-link.active {
+            color: #000;
+        }
+
+        .nav-link.active::after {
+            content: '';
+            position: absolute;
+            bottom: -6px;
+            left: 0;
+            width: 100%;
+            height: 1px;
+            background: #000;
+        }
+
+        /* ---------------- MASONRY ---------------- */
         .masonry-container {
             column-count: 2;
             column-gap: 15px;
         }
-        @media (min-width: 768px) { .masonry-container { column-count: 3; } }
-        @media (min-width: 1024px) { .masonry-container { column-count: 4; } }
+
+        @media (min-width: 768px) {
+            .masonry-container { column-count: 3; }
+        }
+
+        @media (min-width: 1024px) {
+            .masonry-container { column-count: 4; }
+        }
 
         .gallery-item {
             break-inside: avoid;
             margin-bottom: 15px;
-            position: relative;
+            background: #f3f3f3;
             cursor: pointer;
             overflow: hidden;
-            background: #f9f9f9;
         }
 
         .gallery-item img {
             width: 100%;
             height: auto;
             display: block;
-            transition: all 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            transition: all 0.6s ease;
         }
 
         .gallery-item:hover img {
-            opacity: 0.3;
+            opacity: 0.35;
             filter: grayscale(100%);
             transform: scale(1.03);
         }
 
-        .nav-link {
-            position: relative;
-            transition: color 0.3s;
-            cursor: pointer;
-        }
-        .nav-link.active { color: #000; font-weight: 400; }
-        .nav-link.active::after {
-            content: '';
-            position: absolute;
-            bottom: -5px; left: 0;
-            width: 100%; height: 1px;
-            background: #000;
+        /* ---------------- LIGHTBOX ---------------- */
+        #lightbox {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(255,255,255,0.98);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
         }
 
-        /* --- NOVA ESTRUTURA DE CONTATO --- */
+        /* ---------------- CONTATO ---------------- */
         #contact-page {
             display: none;
-            background: #ffffff;
             min-height: 80vh;
+            background: #fff;
         }
 
         .contact-grid {
-            display: grid;
-            grid-template-columns: 1fr;
-            gap: 40px;
             max-width: 1200px;
             margin: 0 auto;
-            padding: 60px 32px;
+            padding: 80px 32px;
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 60px;
             align-items: center;
         }
 
         @media (min-width: 768px) {
             .contact-grid {
                 grid-template-columns: 1fr 1fr;
-                gap: 100px;
-                padding: 100px 48px;
+                gap: 120px;
             }
         }
 
@@ -107,166 +140,186 @@
         }
 
         .contact-label {
-            font-weight: 600;
-            text-transform: uppercase;
             font-size: 11px;
-            letter-spacing: 0.1em;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            font-weight: 500;
             margin-bottom: 4px;
         }
 
         .contact-link {
             color: #666;
-            text-decoration: none;
             border-bottom: 1px solid #ddd;
+            text-decoration: none;
             padding-bottom: 2px;
             transition: all 0.3s;
         }
 
         .contact-link:hover {
             color: #000;
-            border-bottom-color: #000;
-        }
-
-        #lightbox {
-            display: none;
-            position: fixed; inset: 0;
-            background: rgba(255, 255, 255, 0.99);
-            z-index: 1000;
-            justify-content: center; align-items: center;
+            border-color: #000;
         }
     </style>
 </head>
+
 <body>
 
-    <nav class="fixed w-full z-[100] bg-white/90 backdrop-blur-md border-b border-gray-50">
-        <div class="container mx-auto px-8 py-8 md:py-10 flex flex-col md:flex-row justify-between items-center gap-6">
-            <a href="#" onclick="showSection('galeria')" class="text-xl font-light tracking-ultra uppercase">LEO G</a>
-            
-            <div class="flex space-x-6 md:space-x-10 text-[10px] md:text-[11px] tracking-[0.2em] uppercase text-gray-400 font-light items-center">
-                <span class="nav-link active" id="btn-todos" onclick="filterGallery('todos', this)">Visão geral</span>
-                <span class="nav-link" id="btn-contato" onclick="showSection('contato', this)">Contato</span>
-                <a href="https://www.instagram.com/leofotografiabg" target="_blank" class="text-sm text-black"><i class="fab fa-instagram"></i></a>
-            </div>
-        </div>
-    </nav>
+<!-- ================= NAV ================= -->
+<nav class="fixed w-full z-[100] bg-white/90 backdrop-blur-md border-b border-gray-100">
+    <div class="container mx-auto px-8 py-8 md:py-10 flex flex-col md:flex-row justify-between items-center gap-6">
 
-    <div id="spacer" class="h-44 md:h-52"></div>
+        <!-- LOGO -->
+        <a href="#" onclick="showSection('galeria')" class="block">
+            <img src="https://clmgomes.github.io/leofotografia/imagens/logo.png"
+                 alt="Leo Fotografia"
+                 class="h-10 md:h-12 object-contain">
+        </a>
 
-    <main id="galeria-sec">
-        <header class="text-center px-4 mb-16 animate-item">
-            <p class="text-lg md:text-xl font-[200] tracking-[0.15em] text-gray-400 uppercase">
-                Fotógrafo em Bento Gonçalves & Serra Gaúcha
-            </p>
-        </header>
-
-        <section class="px-3 md:px-12 pb-20">
-            <div class="masonry-container" id="gallery-grid"></div>
-        </section>
-    </main>
-
-    <section id="contact-page" class="animate-item">
-        <div class="contact-grid">
-            <div class="space-y-12">
-                <h2 class="text-5xl font-light tracking-tight">Contato</h2>
-                
-                <p class="text-gray-500 font-light leading-relaxed max-w-sm">
-                    Sinta-se à vontade para entrar em contato para orçamentos, parcerias ou apenas para conversar sobre fotografia.
-                </p>
-
-                <div class="space-y-10">
-                    <div>
-                        <p class="contact-label">Pessoal</p>
-                        <a href="mailto:clmgomes@gmail.com" class="contact-link">clmgomes@gmail.com</a>
-                    </div>
-
-                    <div>
-                        <p class="contact-label">WhatsApp</p>
-                        <a href="https://wa.me/5554999257279" class="contact-link">(54) 99925-7279</a>
-                    </div>
-
-                    <div>
-                        <p class="contact-label">Localização</p>
-                        <p class="text-gray-600 font-light">Bento Gonçalves, RS - Serra Gaúcha</p>
-                    </div>
-                </div>
-            </div>
-
-            <div>
-                <img src="https://clmgomes.github.io/leofotografia/capa.jpg" alt="Leo Gomes" class="contact-photo shadow-sm">
-            </div>
-        </div>
-    </section>
-
-    <div id="lightbox" onclick="closeLB()">
-        <button class="absolute top-10 right-10 text-3xl font-thin">&times;</button>
-        <div class="relative" onclick="event.stopPropagation()">
-            <img src="" id="lb-img" class="max-w-[90vw] max-h-[85vh] object-contain">
+        <!-- MENU -->
+        <div class="flex space-x-6 md:space-x-10 text-[10px] md:text-[11px] tracking-[0.2em] uppercase text-gray-400 font-light items-center">
+            <span class="nav-link active" onclick="filterGallery('todos', this)">Visão geral</span>
+            <span class="nav-link" onclick="filterGallery('pessoas', this)">Pessoas</span>
+            <span class="nav-link" onclick="filterGallery('coisas', this)">Coisas</span>
+            <span class="nav-link" onclick="showSection('contato', this)">Contato</span>
+            <a href="https://www.instagram.com/leofotografiabg" target="_blank" class="text-sm text-black">
+                <i class="fab fa-instagram"></i>
+            </a>
         </div>
     </div>
+</nav>
 
-    <script>
-        const imageSets = {
-            pessoas: [
-                'https://clmgomes.github.io/leofotografia/imagens/retrato.jpg',
-                'https://clmgomes.github.io/leofotografia/imagens/retrato3.jpg',
-                'https://clmgomes.github.io/leofotografia/imagens/retrato4.jpg',
-                'https://clmgomes.github.io/leofotografia/imagens/retrato5.jpg'
-            ],
-            coisas: [
-                'https://clmgomes.github.io/leofotografia/imagens/ciclismo1.jpg',
-                'https://clmgomes.github.io/leofotografia/imagens/ciclismo2.jpg',
-                'https://clmgomes.github.io/leofotografia/imagens/eventos1.jpg'
-            ]
+<div class="h-40 md:h-48"></div>
+
+<!-- ================= GALERIA ================= -->
+<main id="galeria-sec">
+    <header class="text-center px-4 mb-16 animate-item">
+        <p class="text-lg md:text-xl font-[200] tracking-[0.15em] text-gray-400 uppercase">
+            Fotógrafo em Bento Gonçalves & Serra Gaúcha
+        </p>
+    </header>
+
+    <section class="px-3 md:px-12 pb-20">
+        <div class="masonry-container" id="gallery-grid"></div>
+    </section>
+</main>
+
+<!-- ================= CONTATO ================= -->
+<section id="contact-page">
+    <div class="contact-grid">
+        <div class="space-y-12">
+            <h2 class="text-5xl font-light">Contato</h2>
+
+            <p class="text-gray-500 font-light max-w-sm">
+                Orçamentos, parcerias ou apenas uma boa conversa sobre fotografia.
+            </p>
+
+            <div class="space-y-10">
+                <div>
+                    <p class="contact-label">Email</p>
+                    <a href="mailto:clmgomes@gmail.com" class="contact-link">clmgomes@gmail.com</a>
+                </div>
+
+                <div>
+                    <p class="contact-label">WhatsApp</p>
+                    <a href="https://wa.me/5554999257279" class="contact-link">(54) 99925-7279</a>
+                </div>
+
+                <div>
+                    <p class="contact-label">Localização</p>
+                    <p class="text-gray-600 font-light">Bento Gonçalves, RS</p>
+                </div>
+            </div>
+        </div>
+
+        <img src="https://clmgomes.github.io/leofotografia/capa.jpg" alt="Leo Gomes" class="contact-photo shadow-sm">
+    </div>
+</section>
+
+<!-- ================= LIGHTBOX ================= -->
+<div id="lightbox" onclick="closeLB()">
+    <button class="absolute top-10 right-10 text-4xl font-thin">&times;</button>
+    <img id="lb-img" class="max-w-[90vw] max-h-[85vh] object-contain">
+</div>
+
+<!-- ================= SCRIPT ================= -->
+<script>
+const imageSets = {
+    pessoas: [
+        'https://clmgomes.github.io/leofotografia/imagens/retrato.jpg',
+        'https://clmgomes.github.io/leofotografia/imagens/retrato3.jpg',
+        'https://clmgomes.github.io/leofotografia/imagens/retrato4.jpg',
+        'https://clmgomes.github.io/leofotografia/imagens/retrato5.jpg'
+    ],
+    coisas: [
+        'https://clmgomes.github.io/leofotografia/imagens/ciclismo1.jpg',
+        'https://clmgomes.github.io/leofotografia/imagens/ciclismo2.jpg',
+        'https://clmgomes.github.io/leofotografia/imagens/eventos1.jpg'
+    ]
+};
+
+function filterGallery(tipo, btn) {
+    showSection('galeria', btn);
+
+    const grid = document.getElementById('gallery-grid');
+    grid.innerHTML = '';
+
+    let fotos = [];
+
+    if (tipo === 'pessoas') fotos = imageSets.pessoas;
+    else if (tipo === 'coisas') fotos = imageSets.coisas;
+    else fotos = [...imageSets.pessoas, ...imageSets.coisas];
+
+    fotos.sort(() => Math.random() - 0.5);
+
+    fotos.forEach((url, i) => {
+        const item = document.createElement('div');
+        item.className = 'gallery-item';
+
+        const img = document.createElement('img');
+        img.src = url;
+        img.loading = 'lazy';
+
+        img.onload = () => {
+            item.classList.add('animate-item');
+            item.style.animationDelay = `${i * 0.12}s`;
         };
 
-        function filterGallery(categoria, btn) {
-            showSection('galeria', btn);
-            const grid = document.getElementById('gallery-grid');
-            grid.innerHTML = '';
-            let selecionadas = [...imageSets.pessoas, ...imageSets.coisas].sort(() => Math.random() - 0.5);
+        item.onclick = () => openLB(url);
 
-            selecionadas.forEach((url, i) => {
-                const item = document.createElement('div');
-                item.className = 'gallery-item animate-item';
-                item.style.animationDelay = `${i * 0.05}s`;
-                item.innerHTML = `<img src="${url}" loading="lazy">`;
-                item.onclick = () => openLB(url);
-                grid.appendChild(item);
-            });
-        }
+        item.appendChild(img);
+        grid.appendChild(item);
+    });
+}
 
-        function showSection(tipo, btn) {
-            if(btn) {
-                document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
-                btn.classList.add('active');
-            }
-            if(tipo === 'contato') {
-                document.getElementById('contact-page').style.display = 'block';
-                document.getElementById('galeria-sec').style.display = 'none';
-                document.getElementById('spacer').style.display = 'block';
-                document.body.style.overflow = 'auto';
-            } else {
-                document.getElementById('contact-page').style.display = 'none';
-                document.getElementById('galeria-sec').style.display = 'block';
-                document.getElementById('spacer').style.display = 'block';
-                document.body.style.overflow = 'auto';
-            }
-            window.scrollTo(0,0);
-        }
+function showSection(tipo, btn) {
+    if (btn) {
+        document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
+        btn.classList.add('active');
+    }
 
-        function openLB(url) {
-            document.getElementById('lb-img').src = url;
-            document.getElementById('lightbox').style.display = 'flex';
-            document.body.style.overflow = 'hidden';
-        }
+    document.getElementById('galeria-sec').style.display = tipo === 'contato' ? 'none' : 'block';
+    document.getElementById('contact-page').style.display = tipo === 'contato' ? 'block' : 'none';
 
-        function closeLB() {
-            document.getElementById('lightbox').style.display = 'none';
-            document.body.style.overflow = 'auto';
-        }
+    window.scrollTo(0, 0);
+}
 
-        document.addEventListener('keydown', (e) => { if(e.key === 'Escape') closeLB(); });
-        window.onload = () => filterGallery('todos');
-    </script>
+function openLB(url) {
+    document.getElementById('lb-img').src = url;
+    document.getElementById('lightbox').style.display = 'flex';
+    document.body.style.overflow = 'hidden';
+}
+
+function closeLB() {
+    document.getElementById('lightbox').style.display = 'none';
+    document.body.style.overflow = 'auto';
+}
+
+document.addEventListener('keydown', e => {
+    if (e.key === 'Escape') closeLB();
+});
+
+window.onload = () => filterGallery('todos');
+</script>
+
 </body>
 </html>
