@@ -25,23 +25,6 @@
             scroll-behavior: smooth;
         }
 
-        /* ---------------- ANIMAÇÕES ---------------- */
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        .animate-item {
-            animation: fadeInUp 1.2s ease-out forwards;
-            opacity: 0;
-        }
-
         /* ---------------- NAV ---------------- */
         .nav-link {
             position: relative;
@@ -77,12 +60,22 @@
             .masonry-container { column-count: 4; }
         }
 
+        /* -------- GALERIA (ANTI-PIPELINE / ANTI-POPCORN) -------- */
         .gallery-item {
             break-inside: avoid;
             margin-bottom: 15px;
             background: #f3f3f3;
             cursor: pointer;
             overflow: hidden;
+
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+
+        .gallery-item.loaded {
+            opacity: 1;
+            transform: translateY(0);
         }
 
         .gallery-item img {
@@ -168,14 +161,12 @@
 <nav class="fixed w-full z-[100] bg-white/90 backdrop-blur-md border-b border-gray-100">
     <div class="container mx-auto px-8 py-8 md:py-10 flex flex-col md:flex-row justify-between items-center gap-6">
 
-        <!-- LOGO -->
         <a href="#" onclick="showSection('galeria')" class="block">
             <img src="https://clmgomes.github.io/leofotografia/imagens/logoleo.png"
                  alt="Leo Fotografia"
                  class="h-10 md:h-12 object-contain">
         </a>
 
-        <!-- MENU -->
         <div class="flex space-x-6 md:space-x-10 text-[10px] md:text-[11px] tracking-[0.2em] uppercase text-gray-400 font-light items-center">
             <span class="nav-link active" onclick="filterGallery('todos', this)">Visão geral</span>
             <span class="nav-link" onclick="filterGallery('pessoas', this)">Pessoas</span>
@@ -192,7 +183,7 @@
 
 <!-- ================= GALERIA ================= -->
 <main id="galeria-sec">
-    <header class="text-center px-4 mb-16 animate-item">
+    <header class="text-center px-4 mb-16">
         <p class="text-lg md:text-xl font-[200] tracking-[0.15em] text-gray-400 uppercase">
             Fotógrafo em Bento Gonçalves & Serra Gaúcha
         </p>
@@ -264,14 +255,13 @@ function filterGallery(tipo, btn) {
     grid.innerHTML = '';
 
     let fotos = [];
-
     if (tipo === 'pessoas') fotos = imageSets.pessoas;
     else if (tipo === 'coisas') fotos = imageSets.coisas;
     else fotos = [...imageSets.pessoas, ...imageSets.coisas];
 
     fotos.sort(() => Math.random() - 0.5);
 
-    fotos.forEach((url, i) => {
+    fotos.forEach(url => {
         const item = document.createElement('div');
         item.className = 'gallery-item';
 
@@ -280,8 +270,9 @@ function filterGallery(tipo, btn) {
         img.loading = 'lazy';
 
         img.onload = () => {
-            item.classList.add('animate-item');
-            item.style.animationDelay = `${i * 0.12}s`;
+            requestAnimationFrame(() => {
+                item.classList.add('loaded');
+            });
         };
 
         item.onclick = () => openLB(url);
@@ -323,4 +314,3 @@ window.onload = () => filterGallery('todos');
 
 </body>
 </html>
-
