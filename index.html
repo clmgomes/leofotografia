@@ -279,15 +279,16 @@ function initLazyLoad() {
             if (entry.isIntersecting) {
                 const img = entry.target;
                 img.src = img.dataset.src;
-                    img.onload = () => {
-                        setTimeout(() => {
-                            img.classList.add('loaded');
-                        }, 2000);
-                    };
+                img.onload = () => {
+                    // Removido o timeout de 2s para o site parecer mais rápido no 4G/5G
+                    requestAnimationFrame(() => {
+                        img.classList.add('loaded');
+                    });
+                };
                 observer.unobserve(img);
             }
         });
-    }, { rootMargin: '200px' });
+    }, { rootMargin: '300px' }); // Aumentado para carregar um pouco antes do scroll chegar
 
     document.querySelectorAll('.gallery-item img').forEach(img => observer.observe(img));
 }
@@ -340,6 +341,7 @@ window.onload = () => filterGallery('todos');
 
 </body>
 </html>
+
 
 
 
