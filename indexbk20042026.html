@@ -19,40 +19,44 @@
     <meta property="og:url" content="https://www.leofotografia.com.br">
     <meta property="og:type" content="website">
     <meta property="og:image:type" content="image/jpeg">
+    <meta name="viewport" content="width=device-width,user-scalable=none" />
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:image" content="https://www.leofotografia.com.br/imagens/miniatura.jpg">
     <meta property="og:image:alt" content="Fotógrafo posando com câmera – Leo Fotografia">
 
     <!-- Google tag (gtag.js) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-K3ZTW0SCN8"></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-      gtag('config', 'G-K3ZTW0SCN8');
-    </script>
+	<script async src="https://www.googletagmanager.com/gtag/js?id=G-K3ZTW0SCN8"></script>
+	<script>
+	  window.dataLayer = window.dataLayer || [];
+	  function gtag(){dataLayer.push(arguments);}
+	  gtag('js', new Date());
+	
+	  gtag('config', 'G-K3ZTW0SCN8');
+	</script>
     
-    <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "ProfessionalService",
-      "name": "Leo Fotografia",
-      "url": "https://www.leofotografia.com.br",
-      "image": [
-          "https://clmgomes.github.io/leofotografia/imagens/pessoas/pessoa40.webp",
-          "https://clmgomes.github.io/leofotografia/imagens/pessoas/pessoa22.webp",
-          "https://clmgomes.github.io/leofotografia/imagens/pessoas/pessoa17.webp",
-          "https://clmgomes.github.io/leofotografia/imagens/pessoas/pessoa47.webp",
-          "https://clmgomes.github.io/leofotografia/imagens/pessoas/pessoa41.webp"
-      ],
-      "address": {
-        "@type": "PostalAddress",
-        "addressLocality": "Bento Gonçalves",
-        "addressRegion": "RS",
-        "addressCountry": "BR"
-      }
-    }
-    </script>
+    		<script type="application/ld+json">
+		{
+		  "@context": "https://schema.org",
+		  "@type": "ProfessionalService",
+		  "name": "Leo Fotografia",
+		  "url": "https://www.leofotografia.com.br",
+		  "image": [
+		      "https://clmgomes.github.io/leofotografia/imagens/pessoas/pessoa40.webp",
+		      "https://clmgomes.github.io/leofotografia/imagens/pessoas/pessoa22.webp",
+              "https://clmgomes.github.io/leofotografia/imagens/pessoas/pessoa17.webp",
+		      "https://clmgomes.github.io/leofotografia/imagens/pessoas/pessoa47.webp",
+		      "https://clmgomes.github.io/leofotografia/imagens/pessoas/pessoa41.webp"
+		  ],
+		  "address": {
+		    "@type": "PostalAddress",
+		    "addressLocality": "Bento Gonçalves",
+		    "addressRegion": "RS",
+		    "addressCountry": "BR"
+		  }
+		}
+		</script>
+    
+    
     
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -77,61 +81,42 @@
         /* Masonry Grid */
         .masonry-container {
             column-count: 2;
-            column-gap: 16px;
+            column-gap: 20px;
         }
         @media (min-width: 768px) { .masonry-container { column-count: 3; } }
         @media (min-width: 1024px) { .masonry-container { column-count: 4; } }
 
-        /* Gallery items */
+        /* Galeria e Efeito Fade-In */
         .gallery-item {
             break-inside: avoid;
-            margin-bottom: 16px;
-            background: #ebebeb;
+            margin-bottom: 20px;
+            background: #fcfcfc;
             cursor: pointer;
             overflow: hidden;
             position: relative;
+            min-height: 100px;
         }
 
         .gallery-item img {
             width: 100%;
-            height: auto; /* mantém proporção original retrato/paisagem */
+            height: auto;
             display: block;
-            opacity: 0;
-            transition: opacity 0.4s ease, transform 0.5s ease;
-            transform: scale(1.02);
+            opacity: 0; /* Começa invisível para o fade-in */
+            transform: translateY(15px); /* Leve subida no surgimento */
+            transition: opacity 2s cubic-bezier(0.4, 0, 0.2, 1), 
+                        transform 2.5s cubic-bezier(0.4, 0, 0.2, 1),
+                        filter 1.7s ease, scale 1.8s ease;
         }
 
-        /* Aparece suavemente assim que carregar — sem setTimeout artificial */
+        /* Classe ativada pelo JS ao carregar */
         .gallery-item img.loaded {
             opacity: 1;
-            transform: scale(1);
+            transform: translateY(0);
         }
 
         .gallery-item:hover img.loaded {
-            opacity: 0.82;
-            transform: scale(1.05);
-        }
-
-        /* Shimmer animado enquanto a imagem não carregou */
-        .gallery-item::before {
-            content: '';
-            position: absolute;
-            inset: 0;
-            min-height: 160px;
-            background: linear-gradient(90deg, #ebebeb 25%, #d8d8d8 50%, #ebebeb 75%);
-            background-size: 200% 100%;
-            animation: shimmer 1.4s infinite;
-            z-index: 0;
-        }
-
-        .gallery-item img.loaded {
-            position: relative;
-            z-index: 1;
-        }
-
-        @keyframes shimmer {
-            0% { background-position: -200% 0; }
-            100% { background-position: 200% 0; }
+            opacity: 0.8;
+            scale: 1.05;
         }
 
         /* Lightbox */
@@ -139,7 +124,7 @@
             display: none;
             position: fixed;
             inset: 0;
-            background: rgba(255,255,255,0.92);
+            background: rgba(255,255,255,0.8);
             z-index: 1000;
             justify-content: center;
             align-items: center;
@@ -256,21 +241,24 @@ const imageSets = {
         'https://clmgomes.github.io/leofotografia/imagens/pessoas/pessoa42.webp',
         'https://clmgomes.github.io/leofotografia/imagens/pessoas/pessoa43.webp',
         'https://clmgomes.github.io/leofotografia/imagens/pessoas/pessoa44.webp',
-        'https://clmgomes.github.io/leofotografia/imagens/pessoas/pessoa46.webp',
-        'https://clmgomes.github.io/leofotografia/imagens/pessoas/pessoa47.webp',
-        'https://clmgomes.github.io/leofotografia/imagens/pessoas/pessoa48.webp',
-        'https://clmgomes.github.io/leofotografia/imagens/pessoas/pessoa49.webp',
-        'https://clmgomes.github.io/leofotografia/imagens/pessoas/pessoa50.webp',
-        'https://clmgomes.github.io/leofotografia/imagens/pessoas/pessoa51.webp',
-        'https://clmgomes.github.io/leofotografia/imagens/pessoas/pessoa53.webp',
-        'https://clmgomes.github.io/leofotografia/imagens/pessoas/pessoa54.webp',
+        'https://clmgomes.github.io/leofotografia/imagens/pessoas/pessoa46.webp',       
+		'https://clmgomes.github.io/leofotografia/imagens/pessoas/pessoa47.webp',
+        'https://clmgomes.github.io/leofotografia/imagens/pessoas/pessoa48.webp',       
+		'https://clmgomes.github.io/leofotografia/imagens/pessoas/pessoa49.webp',
+        'https://clmgomes.github.io/leofotografia/imagens/pessoas/pessoa50.webp',       
+		'https://clmgomes.github.io/leofotografia/imagens/pessoas/pessoa51.webp',
+        'https://clmgomes.github.io/leofotografia/imagens/pessoas/pessoa53.webp',       
+		'https://clmgomes.github.io/leofotografia/imagens/pessoas/pessoa54.webp',
         'https://clmgomes.github.io/leofotografia/imagens/pessoas/pessoa55.webp',
         'https://clmgomes.github.io/leofotografia/imagens/pessoas/pessoa56.webp',
-        'https://clmgomes.github.io/leofotografia/imagens/pessoas/pessoa57.webp',
-        'https://clmgomes.github.io/leofotografia/imagens/pessoas/pessoa58.webp',
-        'https://clmgomes.github.io/leofotografia/imagens/pessoas/pessoa59.webp',
-        'https://clmgomes.github.io/leofotografia/imagens/pessoas/pessoa60.webp',
+        'https://clmgomes.github.io/leofotografia/imagens/pessoas/pessoa57.webp',       
+		'https://clmgomes.github.io/leofotografia/imagens/pessoas/pessoa58.webp',       
+		'https://clmgomes.github.io/leofotografia/imagens/pessoas/pessoa59.webp',		'https://clmgomes.github.io/leofotografia/imagens/pessoas/pessoa60.webp',
         'https://clmgomes.github.io/leofotografia/imagens/pessoas/pessoa45.webp'
+
+        
+        
+
     ],
     coisas: [
         'https://clmgomes.github.io/leofotografia/imagens/coisas/coisa1.webp',
@@ -295,64 +283,57 @@ const imageSets = {
         'https://clmgomes.github.io/leofotografia/imagens/coisas/coisa20.webp',
         'https://clmgomes.github.io/leofotografia/imagens/coisas/coisa21.webp',
         'https://clmgomes.github.io/leofotografia/imagens/coisas/coisa22.webp',
-        'https://clmgomes.github.io/leofotografia/imagens/coisas/coisa23.webp',
-        'https://clmgomes.github.io/leofotografia/imagens/coisas/coisa25.webp',
+        'https://clmgomes.github.io/leofotografia/imagens/coisas/coisa23.webp',           
+		'https://clmgomes.github.io/leofotografia/imagens/coisas/coisa25.webp',
         'https://clmgomes.github.io/leofotografia/imagens/coisas/coisa26.webp',
         'https://clmgomes.github.io/leofotografia/imagens/coisas/coisa27.webp',
         'https://clmgomes.github.io/leofotografia/imagens/coisas/coisa28.webp',
-        'https://clmgomes.github.io/leofotografia/imagens/coisas/coisa29.webp',
-        'https://clmgomes.github.io/leofotografia/imagens/coisas/coisa30.webp',
+        'https://clmgomes.github.io/leofotografia/imagens/coisas/coisa29.webp',       
+		'https://clmgomes.github.io/leofotografia/imagens/coisas/coisa30.webp',
         'https://clmgomes.github.io/leofotografia/imagens/coisas/coisa31.webp',
-        'https://clmgomes.github.io/leofotografia/imagens/coisas/coisa32.webp',
-        'https://clmgomes.github.io/leofotografia/imagens/coisas/coisa33.webp',
-        'https://clmgomes.github.io/leofotografia/imagens/coisas/coisa34.webp',
+        'https://clmgomes.github.io/leofotografia/imagens/coisas/coisa32.webp',       
+		'https://clmgomes.github.io/leofotografia/imagens/coisas/coisa33.webp',       
+		'https://clmgomes.github.io/leofotografia/imagens/coisas/coisa34.webp',
         'https://clmgomes.github.io/leofotografia/imagens/coisas/coisa24.webp'
+
     ]
 };
 
-// ─── LAZY LOAD MELHORADO ─────────────────────────────────────────────────────
+// Lazy Loading Inteligente
 function initLazyLoad() {
     const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
-            if (!entry.isIntersecting) return;
-            const img = entry.target;
-            if (img.dataset.src) {
+            if (entry.isIntersecting) {
+                const img = entry.target;
                 img.src = img.dataset.src;
-                img.removeAttribute('data-src');
-                img.onload = () => img.classList.add('loaded');
-                img.onerror = () => img.classList.add('loaded'); // evita shimmer eterno
+                    img.onload = () => {
+                        setTimeout(() => {
+                            img.classList.add('loaded');
+                        }, 500);
+                    };
+                observer.unobserve(img);
             }
-            observer.unobserve(img);
         });
-    }, {
-        // CORREÇÃO: 800px de margem = pré-carrega ~2 telas inteiras à frente
-        rootMargin: '800px 0px',
-        threshold: 0
-    });
+    }, { rootMargin: '200px' });
 
-    document.querySelectorAll('.gallery-item img[data-src]').forEach(img => observer.observe(img));
+    document.querySelectorAll('.gallery-item img').forEach(img => observer.observe(img));
 }
 
 function filterGallery(tipo, btn) {
     showSection('galeria', btn);
     const grid = document.getElementById('gallery-grid');
     grid.innerHTML = '';
-
-    let images = (tipo === 'todos')
-        ? [...imageSets.pessoas, ...imageSets.coisas]
+    
+    let images = (tipo === 'todos') 
+        ? [...imageSets.pessoas, ...imageSets.coisas] 
         : [...imageSets[tipo]];
-
+    
     images.sort(() => Math.random() - 0.5);
 
     images.forEach(url => {
         const item = document.createElement('div');
         item.className = 'gallery-item';
-        // CORREÇÃO: wrapper reserva o espaço (sem placeholder de altura dinâmico)
-        item.innerHTML = `
-            <div class="gallery-item-inner">
-                <img data-src="${url}" alt="Foto Leo Fotografia" loading="lazy"
-                     onclick="openLB('${url}')">
-            </div>`;
+        item.innerHTML = `<img data-src="${url}" alt="Foto Leo Fotografia" onclick="openLB('${url}')">`;
         grid.appendChild(item);
     });
 
@@ -366,7 +347,7 @@ function showSection(tipo, btn) {
     }
     document.getElementById('galeria-sec').style.display = tipo === 'contato' ? 'none' : 'block';
     document.getElementById('contact-page').style.display = tipo === 'contato' ? 'block' : 'none';
-    window.scrollTo(0, 0);
+    window.scrollTo(0,0);
 }
 
 function openLB(url) {
@@ -386,3 +367,6 @@ window.onload = () => filterGallery('todos');
 
 </body>
 </html>
+
+
+
